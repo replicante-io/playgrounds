@@ -1,5 +1,5 @@
-let status = rs.status();
-if (status.codeName == "NotYetInitialized") {
+var status = rs.status();
+if (status.code == 94 /* NotYetInitialized */) {
     print("Replica Set not initialised, correcting ...");
     rs.initiate({
         _id: "replica-set",

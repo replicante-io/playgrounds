@@ -7,7 +7,7 @@ services:
       - 'mongod'
       - '--replSet'
       - 'replica-set'
-    image: mongo:3.6
+    image: mongo:3.2
     hostname: node1
     volumes:
       - './data/node1:/data/db'
@@ -19,7 +19,7 @@ services:
       - 'replica-set'
     depends_on:
       - node1
-    image: mongo:3.6
+    image: mongo:3.2
     hostname: node2
     volumes:
       - './data/node2:/data/db'
@@ -32,7 +32,7 @@ services:
     depends_on:
       - node1
       - node2
-    image: mongo:3.6
+    image: mongo:3.2
     hostname: node3
     volumes:
       - './data/node3:/data/db'
@@ -45,7 +45,7 @@ services:
       - node1
       - node2
       - node3
-    image: mongo:3.6
+    image: mongo:3.2
     hostname: controller
     volumes:
       - './:/files'
