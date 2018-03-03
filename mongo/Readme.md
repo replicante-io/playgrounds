@@ -3,6 +3,8 @@ MongoDB Playgrounds
 
 Replica Set (3.2)
 -----------------
+From the repo root:
+
 ```bash
 cd mongo/rs
 docker-compose up
