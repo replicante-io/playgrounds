@@ -1,0 +1,6 @@
+agent:
+  server:
+    bind: '0.0.0.0:37017'
+
+mongo:
+  host: node

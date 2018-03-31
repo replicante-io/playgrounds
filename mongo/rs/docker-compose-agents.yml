@@ -1,0 +1,39 @@
+version: '3'
+
+
+services:
+  agent1:
+    build: ../../agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+    working_dir: '/replicante'
+    links:
+      - 'node1:node'
+    ports:
+      - '37017:37017'
+    volumes:
+      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
+
+  agent2:
+    build: ../../agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+    working_dir: '/replicante'
+    links:
+      - 'node2:node'
+    ports:
+      - '37018:37017'
+    volumes:
+      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
+
+  agent3:
+    build: ../../agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+    working_dir: '/replicante'
+    links:
+      - 'node3:node'
+    ports:
+      - '37019:37017'
+    volumes:
+      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
