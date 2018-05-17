@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 
 services:
@@ -49,3 +49,11 @@ services:
     hostname: controller
     volumes:
       - './:/files'
+
+
+networks:
+  default:
+    name: 'playgrounds_mongodb_rs'
+    ipam:
+      config:
+        - subnet: 172.65.0.0/24

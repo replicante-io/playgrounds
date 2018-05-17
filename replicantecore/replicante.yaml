@@ -1,0 +1,19 @@
+api:
+  bind: '0.0.0.0:16016'
+
+
+discovery:
+  interval: 15
+  backends:
+    files:
+      - 'conf.d/mongo.yaml'
+
+
+logging:
+  level: 'debug'
+
+
+storage:
+  backend: mongodb
+  options:
+    uri: mongodb://mongo:27017/
