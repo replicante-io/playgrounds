@@ -3,4 +3,4 @@ agent:
     bind: '0.0.0.0:37017'
 
 mongo:
-  host: node
+  uri: mongodb://node:27017/
