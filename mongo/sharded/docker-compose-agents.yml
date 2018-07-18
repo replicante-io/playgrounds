@@ -1,0 +1,133 @@
+version: '3.5'
+
+
+services:
+  agent1:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'config1:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.38'
+    volumes:
+      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+
+  agent2:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'config2:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.39'
+    volumes:
+      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+
+  agent3:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'config3:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.40'
+    volumes:
+      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+
+  agent4:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard1n1:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.41'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent5:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard1n2:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.42'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent6:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard1n3:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.43'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent7:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard2n1:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.44'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent8:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard2n2:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.45'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent9:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'shard2n3:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.46'
+    volumes:
+      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+
+  agent10:
+    build: ../../images/agents
+    command:
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
+    working_dir: '/replicante'
+    links:
+      - 'mongos:node'
+    networks:
+      default:
+        ipv4_address: '172.66.0.47'
+    volumes:
+      - './agent-mongodb-mongos.yaml:/replicante/agent-mongodb.yaml'

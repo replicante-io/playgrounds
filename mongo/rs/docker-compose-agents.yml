@@ -5,7 +5,7 @@ services:
   agent1:
     build: ../../images/agents
     command:
-      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
     working_dir: '/replicante'
     links:
       - 'node1:node'
@@ -15,12 +15,12 @@ services:
     ports:
       - '37018:37017'
     volumes:
-      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
+      - './agent-mongodb.yaml:/replicante/agent-mongodb.yaml'
 
   agent2:
     build: ../../images/agents
     command:
-      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
     working_dir: '/replicante'
     links:
       - 'node2:node'
@@ -30,12 +30,12 @@ services:
     ports:
       - '37019:37017'
     volumes:
-      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
+      - './agent-mongodb.yaml:/replicante/agent-mongodb.yaml'
 
   agent3:
     build: ../../images/agents
     command:
-      - '/replicante/agents/target/debug/replicante-agent-mongodb-rs'
+      - '/replicante/agents/target/debug/replicante-agent-mongodb'
     working_dir: '/replicante'
     links:
       - 'node3:node'
@@ -45,4 +45,4 @@ services:
     ports:
       - '37020:37017'
     volumes:
-      - './agent-mongodb-rs.yaml:/replicante/agent-mongodb-rs.yaml'
+      - './agent-mongodb.yaml:/replicante/agent-mongodb.yaml'

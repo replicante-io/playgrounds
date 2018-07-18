@@ -11,7 +11,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 USER replicante
 WORKDIR /replicante/agents
-RUN git clone --recursive https://github.com/replicante-io/replicante-agents.git . \
+RUN git clone --recursive https://github.com/replicante-io/agents.git . \
   && cargo build
 
 EXPOSE 37017

@@ -1,5 +1,5 @@
 agent:
-  server:
+  api:
     bind: '0.0.0.0:37017'
 
 mongo:
