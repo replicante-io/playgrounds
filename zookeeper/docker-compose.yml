@@ -1,0 +1,60 @@
+version: '3.5'
+
+
+services:
+  node1:
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=node2:2888:3888 server.3=node3:2888:3888
+    hostname: node1
+    image: zookeeper:3.4
+    volumes:
+      - './data/node1/data:/data'
+      - './data/node1/datalog:/datalog'
+
+  node2:
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=node1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=node3:2888:3888
+    hostname: node2
+    image: zookeeper:3.4
+    volumes:
+      - './data/node2/data:/data'
+      - './data/node2/datalog:/datalog'
+
+  node3:
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=node1:2888:3888 server.2=node2:2888:3888 server.3=0.0.0.0:2888:3888
+    hostname: node3
+    image: zookeeper:3.4
+    volumes:
+      - './data/node3/data:/data'
+      - './data/node3/datalog:/datalog'
+
+  # ZooNavgator WebUI
+  zoonavigator-api:
+    environment:
+      API_HTTP_PORT: 9000
+    hostname: zoonavigator-api
+    image: elkozmon/zoonavigator-api:0.5.0
+
+  zoonavigator-web:
+    environment:
+      WEB_HTTP_PORT: 8000
+      API_HOST: "zoonavigator-api"
+      API_PORT: 9000
+    hostname: zoonavigator-web
+    image: elkozmon/zoonavigator-web:0.5.0
+    links:
+      - zoonavigator-api
+    ports:
+      - "8000:8000"
+
+
+networks:
+  default:
+    name: 'playgrounds_zookeeper'
+    ipam:
+      config:
+        - subnet: 172.67.0.0/24
