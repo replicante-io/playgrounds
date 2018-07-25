@@ -1,4 +1,4 @@
-ZooKeeper Playgrounds
+Zookeeper Playgrounds
 =====================
 From the repo root:
 

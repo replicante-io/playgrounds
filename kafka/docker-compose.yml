@@ -1,0 +1,63 @@
+version: '3.5'
+
+
+services:
+  zoo:
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888
+    hostname: zoo
+    image: zookeeper:3.4
+    volumes:
+      - './data/zoo/data:/data'
+      - './data/zoo/datalog:/datalog'
+
+  node1:
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: PLAINTEXT://node1:9092
+      KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      JMX_PORT: 9999
+    hostname: node1
+    image: wurstmeister/kafka:1.1.0
+    links:
+      - zoo
+    volumes:
+      - './data/node1:/kafka'
+
+  node2:
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_LISTENERS: PLAINTEXT://node2:9092
+      KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      JMX_PORT: 9999
+    hostname: node2
+    image: wurstmeister/kafka:1.1.0
+    links:
+      - zoo
+    volumes:
+      - './data/node2:/kafka'
+
+  node3:
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_LISTENERS: PLAINTEXT://node3:9092
+      KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
+      KAFKA_ZOOKEEPER_CONNECT: zoo:2181
+      JMX_PORT: 9999
+    hostname: node3
+    image: wurstmeister/kafka:1.1.0
+    links:
+      - zoo
+    volumes:
+      - './data/node3:/kafka'
+
+
+networks:
+  default:
+    name: 'playgrounds_kafka'
+    ipam:
+      config:
+        - subnet: 172.68.0.0/24
