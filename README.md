@@ -9,6 +9,7 @@ Datastores
 
   * Kafka
   * MongoDB
+  * Redis (cluster)
   * Zookeeper
 
 ### Running agents
@@ -25,6 +26,7 @@ docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
   * 172.66.0.0/24: MongoDB (Sharded)
   * 172.67.0.0/24: Zookeeper
   * 172.68.0.0/24: Kafka
+  * 172.69.0.0/24: Redis (cluster)
 
 
 Development tools
