@@ -1,7 +1,6 @@
 Zookeeper Playgrounds
 =====================
 From the repo root:
-
 ```bash
 cd zookeeper/
 docker-compose up

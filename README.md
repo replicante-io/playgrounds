@@ -7,8 +7,10 @@ datastores locally so that replicante can be developed and tested.
 Datastores
 ----------
 
+  * ElasticSearch
   * Kafka
   * MongoDB
+  * PostgreSQL (stolon)
   * Redis (cluster)
   * Zookeeper
 
@@ -27,6 +29,8 @@ docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
   * 172.67.0.0/24: Zookeeper
   * 172.68.0.0/24: Kafka
   * 172.69.0.0/24: Redis (cluster)
+  * 172.70.0.0/24: ElasticSearch
+  * 172.71.0.0/24: PostgreSQL (stolon)
 
 
 Development tools
