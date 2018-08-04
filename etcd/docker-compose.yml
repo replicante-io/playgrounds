@@ -1,0 +1,74 @@
+version: '3.5'
+
+
+services:
+  node1:
+    environment:
+      ETCD_ADVERTISE_CLIENT_URLS: 'http://node1:2379'
+      ETCD_AUTO_COMPACTION_RETENTION: 1
+      ETCD_DATA_DIR: '/data'
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: 'http://node1:12380'
+      ETCD_INITIAL_CLUSTER: 'node1=http://node1:12380,node2=http://node2:12380,node3=http://node3:12380'
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_INITIAL_CLUSTER_TOKEN: 'etcd-playground'
+      ETCD_LISTEN_CLIENT_URLS: 'http://0.0.0.0:2379'
+      ETCD_LISTEN_PEER_URLS: 'http://0.0.0.0:12380'
+      ETCD_NAME: node1
+    hostname: node1
+    image: 'quay.io/coreos/etcd:v3.3.9'
+    volumes:
+      - type: volume
+        source: node1
+        target: /data
+
+  node2:
+    environment:
+      ETCD_ADVERTISE_CLIENT_URLS: 'http://node2:2379'
+      ETCD_AUTO_COMPACTION_RETENTION: 1
+      ETCD_DATA_DIR: '/data'
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: 'http://node2:12380'
+      ETCD_INITIAL_CLUSTER: 'node1=http://node1:12380,node2=http://node2:12380,node3=http://node3:12380'
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_INITIAL_CLUSTER_TOKEN: 'etcd-playground'
+      ETCD_LISTEN_CLIENT_URLS: 'http://0.0.0.0:2379'
+      ETCD_LISTEN_PEER_URLS: 'http://0.0.0.0:12380'
+      ETCD_NAME: node2
+    hostname: node2
+    image: 'quay.io/coreos/etcd:v3.3.9'
+    volumes:
+      - type: volume
+        source: node2
+        target: /data
+
+  node3:
+    environment:
+      ETCD_ADVERTISE_CLIENT_URLS: 'http://node3:2379'
+      ETCD_AUTO_COMPACTION_RETENTION: 1
+      ETCD_DATA_DIR: '/data'
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: 'http://node3:12380'
+      ETCD_INITIAL_CLUSTER: 'node1=http://node1:12380,node2=http://node2:12380,node3=http://node3:12380'
+      ETCD_INITIAL_CLUSTER_STATE: new
+      ETCD_INITIAL_CLUSTER_TOKEN: 'etcd-playground'
+      ETCD_LISTEN_CLIENT_URLS: 'http://0.0.0.0:2379'
+      ETCD_LISTEN_PEER_URLS: 'http://0.0.0.0:12380'
+      ETCD_NAME: node3
+    hostname: node3
+    image: 'quay.io/coreos/etcd:v3.3.9'
+    volumes:
+      - type: volume
+        source: node3
+        target: /data
+
+
+networks:
+  default:
+    name: 'playgrounds_etcd'
+    ipam:
+      config:
+        - subnet: 172.73.0.0/24
+
+
+volumes:
+  node1:
+  node2:
+  node3:

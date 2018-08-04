@@ -9,6 +9,7 @@ Datastores
 
   * Consul
   * ElasticSearch
+  * Etcd
   * Kafka
   * MongoDB
   * PostgreSQL (stolon)
@@ -33,6 +34,7 @@ docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
   * 172.70.0.0/24: ElasticSearch
   * 172.71.0.0/24: PostgreSQL (stolon)
   * 172.72.0.0/24: Consul
+  * 172.73.0.0/24: Etcd
 
 
 Development tools
