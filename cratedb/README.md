@@ -1,12 +1,10 @@
-ElasticSearch Playgrounds
-=========================
+CrateDB Playground
+==================
 From the repo root:
 ```bash
-cd elasticsearch/
-# ES cluster runs as UID=1000, make the needed dirs.
-mkdir -p data/node{1,2,3}
+cd cratedb/
 
-# ElasticSearch enforces bootstrap checks.
+# CrateDB enforces bootstrap checks.
 # To pass them and start, run the following:
 sysctl vm.max_map_count
 sudo sysctl vm.max_map_count=262144

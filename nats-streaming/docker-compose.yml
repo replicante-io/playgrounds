@@ -1,0 +1,103 @@
+version: '3.5'
+
+
+services:
+  database:
+    environment:
+      POSTGRES_PASSWORD: pgpass
+    hostname: database
+    image: 'postgres:10.4'
+    volumes:
+      - type: volume
+        source: database
+        target: /data
+
+  controller:
+    environment:
+      NATS_VERSION: 0.10.2
+      PGPASSWORD: pgpass
+    command:
+      - '/files/init.sh'
+    image: 'postgres:10.4'
+    volumes:
+      - './:/files'
+
+  node1:
+    build:
+      args:
+        NATS_VERSION: 0.10.2
+      context: nats
+    entrypoint: /files/delay.sh
+    command:
+      - '/root/go/src/github.com/nats-io/nats-streaming-server/nats-streaming-server'
+      - '--cluster_id=nats-streaming-playground'
+      - '--store=SQL'
+      - '--sql_driver=postgres'
+      - '--sql_source=postgres://postgres:pgpass@database/nss?sslmode=disable'
+      - '--http_port=8222'
+      - '--ft_group=shard1'
+      - '--cluster=nats://0.0.0.0:6222'
+      - '--routes=nats://node2:6222'
+      #- '--clustered'
+      #- '--cluster_bootstrap'
+    depends_on:
+      - database
+    hostname: node1
+    volumes:
+      - './:/files'
+
+  node2:
+    build:
+      args:
+        NATS_VERSION: 0.10.2
+      context: nats
+    entrypoint: /files/delay.sh
+    command:
+      - '/root/go/src/github.com/nats-io/nats-streaming-server/nats-streaming-server'
+      - '--cluster_id=nats-streaming-playground'
+      - '--store=SQL'
+      - '--sql_driver=postgres'
+      - '--sql_source=postgres://postgres:pgpass@database/nss?sslmode=disable'
+      - '--http_port=8222'
+      - '--ft_group=shard1'
+      - '--cluster=nats://0.0.0.0:6222'
+      - '--routes=nats://node1:6222'
+    depends_on:
+      - database
+    hostname: node2
+    volumes:
+      - './:/files'
+
+  node3:
+    build:
+      args:
+        NATS_VERSION: 0.10.2
+      context: nats
+    entrypoint: /files/delay.sh
+    command:
+      - '/root/go/src/github.com/nats-io/nats-streaming-server/nats-streaming-server'
+      - '--cluster_id=nats-streaming-playground'
+      - '--store=SQL'
+      - '--sql_driver=postgres'
+      - '--sql_source=postgres://postgres:pgpass@database/nss?sslmode=disable'
+      - '--http_port=8222'
+      - '--ft_group=shard1'
+      - '--cluster=nats://0.0.0.0:6222'
+      - '--routes=nats://node1:6222'
+    depends_on:
+      - database
+    hostname: node3
+    volumes:
+      - './:/files'
+
+
+networks:
+  default:
+    name: 'playgrounds_nats_streaming'
+    ipam:
+      config:
+        - subnet: 172.74.0.0/24
+
+
+volumes:
+  database:

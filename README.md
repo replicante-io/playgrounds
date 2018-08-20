@@ -8,10 +8,13 @@ Datastores
 ----------
 
   * Consul
+  * CouchDB (cluster)
+  * CrateDB
   * ElasticSearch
   * Etcd
   * Kafka
   * MongoDB
+  * NATS Streaming Server
   * PostgreSQL (stolon)
   * Redis (cluster)
   * Zookeeper
@@ -35,6 +38,9 @@ docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
   * 172.71.0.0/24: PostgreSQL (stolon)
   * 172.72.0.0/24: Consul
   * 172.73.0.0/24: Etcd
+  * 172.74.0.0/24: NATS Streaming Server
+  * 172.75.0.0/24: CouchDB (cluster)
+  * 172.76.0.0/24: CrateDB
 
 
 Development tools

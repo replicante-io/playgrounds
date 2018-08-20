@@ -1,0 +1,67 @@
+version: '3.5'
+
+
+services:
+  node1:
+    command:
+      - 'crate'
+      - '-Ccluster.name=crate-playground'
+      - '-Cnode.name=node1'
+      - '-Clicense.enterprise=false'
+      - '-Cnetwork.host=_eth0_'
+    environment:
+      CRATE_HEAP_SIZE: '512m'
+    hostname: node1
+    image: 'crate:3.0.5'
+    volumes:
+      - type: volume
+        source: node1
+        target: /data
+
+  node2:
+    command:
+      - 'crate'
+      - '-Ccluster.name=crate-playground'
+      - '-Cnode.name=node2'
+      - '-Cdiscovery.zen.ping.unicast.hosts=node1'
+      - '-Clicense.enterprise=false'
+      - '-Cnetwork.host=_eth0_'
+    environment:
+      CRATE_HEAP_SIZE: '512m'
+    hostname: node2
+    image: 'crate:3.0.5'
+    volumes:
+      - type: volume
+        source: node2
+        target: /data
+
+  node3:
+    command:
+      - 'crate'
+      - '-Ccluster.name=crate-playground'
+      - '-Cnode.name=node3'
+      - '-Cdiscovery.zen.ping.unicast.hosts=node1'
+      - '-Clicense.enterprise=false'
+      - '-Cnetwork.host=_eth0_'
+    environment:
+      CRATE_HEAP_SIZE: '512m'
+    hostname: node3
+    image: 'crate:3.0.5'
+    volumes:
+      - type: volume
+        source: node3
+        target: /data
+
+
+networks:
+  default:
+    name: 'playgrounds_cratedb'
+    ipam:
+      config:
+        - subnet: 172.76.0.0/24
+
+
+volumes:
+  node1:
+  node2:
+  node3:
