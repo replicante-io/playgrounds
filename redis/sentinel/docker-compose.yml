@@ -1,0 +1,110 @@
+version: '3.5'
+
+
+services:
+  node1:
+    command:
+      - 'redis-server'
+      - '/usr/local/etc/redis/redis.conf'
+    hostname: node1
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.11'
+    volumes:
+      - type: bind
+        source: ./redis1.conf
+        target: /usr/local/etc/redis/redis.conf
+      - type: volume
+        source: node1
+        target: /data
+
+  node2:
+    command:
+      - 'redis-server'
+      - '/usr/local/etc/redis/redis.conf'
+    hostname: node2
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.12'
+    volumes:
+      - type: bind
+        source: ./redis2.conf
+        target: /usr/local/etc/redis/redis.conf
+      - type: volume
+        source: node2
+        target: /data
+
+  node3:
+    command:
+      - 'redis-server'
+      - '/usr/local/etc/redis/redis.conf'
+    hostname: node3
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.13'
+    volumes:
+      - type: bind
+        source: ./redis3.conf
+        target: /usr/local/etc/redis/redis.conf
+      - type: volume
+        source: node3
+        target: /data
+
+  sentinel1:
+    command:
+      - 'redis-sentinel'
+      - '/usr/local/etc/redis/sentinel.conf'
+    hostname: sentinel1
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.21'
+    volumes:
+      - type: bind
+        source: ./sentinel1.conf
+        target: /usr/local/etc/redis/sentinel.conf
+
+  sentinel2:
+    command:
+      - 'redis-sentinel'
+      - '/usr/local/etc/redis/sentinel.conf'
+    hostname: sentinel2
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.22'
+    volumes:
+      - type: bind
+        source: ./sentinel2.conf
+        target: /usr/local/etc/redis/sentinel.conf
+
+  sentinel3:
+    command:
+      - 'redis-sentinel'
+      - '/usr/local/etc/redis/sentinel.conf'
+    hostname: sentinel3
+    image: redis:4.0
+    networks:
+      default:
+        ipv4_address: '172.77.0.23'
+    volumes:
+      - type: bind
+        source: ./sentinel3.conf
+        target: /usr/local/etc/redis/sentinel.conf
+
+
+networks:
+  default:
+    name: 'playgrounds_redis'
+    ipam:
+      config:
+        - subnet: 172.77.0.0/24
+
+
+volumes:
+  node1:
+  node2:
+  node3:

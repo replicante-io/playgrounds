@@ -17,6 +17,7 @@ Datastores
   * NATS Streaming Server
   * PostgreSQL (stolon)
   * Redis (cluster)
+  * Redis (sentinel)
   * Zookeeper
 
 ### Running agents
@@ -41,6 +42,7 @@ docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
   * 172.74.0.0/24: NATS Streaming Server
   * 172.75.0.0/24: CouchDB (cluster)
   * 172.76.0.0/24: CrateDB
+  * 172.77.0.0/24: Redis (sentinel)
 
 
 Development tools
