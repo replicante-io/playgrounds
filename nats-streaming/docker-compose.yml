@@ -20,7 +20,9 @@ services:
       - '/files/init.sh'
     image: 'postgres:10.4'
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
   node1:
     build:
@@ -38,13 +40,13 @@ services:
       - '--ft_group=shard1'
       - '--cluster=nats://0.0.0.0:6222'
       - '--routes=nats://node2:6222'
-      #- '--clustered'
-      #- '--cluster_bootstrap'
     depends_on:
       - database
     hostname: node1
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
   node2:
     build:
@@ -66,7 +68,9 @@ services:
       - database
     hostname: node2
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
   node3:
     build:
@@ -88,7 +92,9 @@ services:
       - database
     hostname: node3
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
 
 networks:
@@ -96,7 +102,7 @@ networks:
     name: 'playgrounds_nats_streaming'
     ipam:
       config:
-        - subnet: 172.74.0.0/24
+        - subnet: 172.65.0.64/27
 
 
 volumes:

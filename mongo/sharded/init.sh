@@ -14,7 +14,7 @@ mongo --norc --host shard2n1 --port 27018 /files/init.shard2.js
 
 
 echo "Waiting for all replica sets to elect a primary ..."
-sleep 10
+sleep 30
 
 echo "Checking (and initialising) shards ..."
 mongo --norc --host mongos /files/init.shards.js

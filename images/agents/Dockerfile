@@ -1,4 +1,4 @@
-FROM rust:1.24
+FROM rust:1.26
 
 RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get update \

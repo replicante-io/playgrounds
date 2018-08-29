@@ -11,7 +11,9 @@ services:
     hostname: controller
     image: 'couchdb:2.1.2'
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
   node1:
     environment:
@@ -64,7 +66,7 @@ networks:
     name: 'playgrounds_couchdb'
     ipam:
       config:
-        - subnet: 172.75.0.0/24
+        - subnet: 172.65.0.96/27
 
 
 volumes:

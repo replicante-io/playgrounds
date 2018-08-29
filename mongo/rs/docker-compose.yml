@@ -10,7 +10,9 @@ services:
     image: mongo:3.2
     hostname: node1
     volumes:
-      - './data/node1:/data/db'
+      - type: volume
+        source: node1
+        target: /data/db
 
   node2:
     command:
@@ -22,7 +24,9 @@ services:
     image: mongo:3.2
     hostname: node2
     volumes:
-      - './data/node2:/data/db'
+      - type: volume
+        source: node2
+        target: /data/db
 
   node3:
     command:
@@ -35,7 +39,9 @@ services:
     image: mongo:3.2
     hostname: node3
     volumes:
-      - './data/node3:/data/db'
+      - type: volume
+        source: node3
+        target: /data/db
 
   controller:
     command:
@@ -48,7 +54,9 @@ services:
     image: mongo:3.2
     hostname: controller
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
 
 networks:
@@ -56,4 +64,10 @@ networks:
     name: 'playgrounds_mongodb_rs'
     ipam:
       config:
-        - subnet: 172.65.0.0/24
+        - subnet: 172.64.0.0/27
+
+
+volumes:
+  node1:
+  node2:
+  node3:

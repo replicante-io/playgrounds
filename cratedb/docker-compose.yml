@@ -58,7 +58,7 @@ networks:
     name: 'playgrounds_cratedb'
     ipam:
       config:
-        - subnet: 172.76.0.0/24
+        - subnet: 172.65.0.128/27
 
 
 volumes:

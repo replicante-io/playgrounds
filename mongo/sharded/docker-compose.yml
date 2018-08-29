@@ -11,7 +11,9 @@ services:
     image: mongo:3.2
     hostname: config1
     volumes:
-      - './data/config1:/data/db'
+      - type: volume
+        source: config1
+        target: /data/db
 
   config2:
     command:
@@ -22,7 +24,9 @@ services:
     image: mongo:3.2
     hostname: config2
     volumes:
-      - './data/config2:/data/db'
+      - type: volume
+        source: config2
+        target: /data/db
 
   config3:
     command:
@@ -33,7 +37,9 @@ services:
     image: mongo:3.2
     hostname: config3
     volumes:
-      - './data/config3:/data/db'
+      - type: volume
+        source: config3
+        target: /data/db
 
   shard1n1:
     command:
@@ -48,7 +54,9 @@ services:
     image: mongo:3.2
     hostname: shard1n1
     volumes:
-      - './data/shard1n1:/data/db'
+      - type: volume
+        source: shard1n1
+        target: /data/db
 
   shard1n2:
     command:
@@ -63,7 +71,9 @@ services:
     image: mongo:3.2
     hostname: shard1n2
     volumes:
-      - './data/shard1n2:/data/db'
+      - type: volume
+        source: shard1n2
+        target: /data/db
 
   shard1n3:
     command:
@@ -78,7 +88,9 @@ services:
     image: mongo:3.2
     hostname: shard1n3
     volumes:
-      - './data/shard1n3:/data/db'
+      - type: volume
+        source: shard1n3
+        target: /data/db
 
   shard2n1:
     command:
@@ -93,7 +105,9 @@ services:
     image: mongo:3.2
     hostname: shard2n1
     volumes:
-      - './data/shard2n1:/data/db'
+      - type: volume
+        source: shard2n1
+        target: /data/db
 
   shard2n2:
     command:
@@ -108,7 +122,9 @@ services:
     image: mongo:3.2
     hostname: shard2n2
     volumes:
-      - './data/shard2n2:/data/db'
+      - type: volume
+        source: shard2n2
+        target: /data/db
 
   shard2n3:
     command:
@@ -123,7 +139,9 @@ services:
     image: mongo:3.2
     hostname: shard2n3
     volumes:
-      - './data/shard2n3:/data/db'
+      - type: volume
+        source: shard2n3
+        target: /data/db
 
   mongos:
     command:
@@ -155,7 +173,9 @@ services:
     image: mongo:3.2
     hostname: controller
     volumes:
-      - './:/files'
+      - type: bind
+        source: .
+        target: /files
 
 
 networks:
@@ -163,4 +183,16 @@ networks:
     name: 'playgrounds_mongodb_sharded'
     ipam:
       config:
-        - subnet: 172.66.0.0/24
+        - subnet: 172.64.0.32/27
+
+
+volumes:
+  config1:
+  config2:
+  config3:
+  shard1n1:
+  shard1n2:
+  shard1n3:
+  shard2n1:
+  shard2n2:
+  shard2n3:

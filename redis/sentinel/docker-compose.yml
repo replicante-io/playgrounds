@@ -10,7 +10,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.11'
+        ipv4_address: '172.64.0.162'
     volumes:
       - type: bind
         source: ./redis1.conf
@@ -27,7 +27,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.12'
+        ipv4_address: '172.64.0.163'
     volumes:
       - type: bind
         source: ./redis2.conf
@@ -44,7 +44,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.13'
+        ipv4_address: '172.64.0.164'
     volumes:
       - type: bind
         source: ./redis3.conf
@@ -61,7 +61,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.21'
+        ipv4_address: '172.64.0.165'
     volumes:
       - type: bind
         source: ./sentinel1.conf
@@ -75,7 +75,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.22'
+        ipv4_address: '172.64.0.166'
     volumes:
       - type: bind
         source: ./sentinel2.conf
@@ -89,7 +89,7 @@ services:
     image: redis:4.0
     networks:
       default:
-        ipv4_address: '172.77.0.23'
+        ipv4_address: '172.64.0.167'
     volumes:
       - type: bind
         source: ./sentinel3.conf
@@ -101,7 +101,7 @@ networks:
     name: 'playgrounds_redis'
     ipam:
       config:
-        - subnet: 172.77.0.0/24
+        - subnet: 172.64.0.160/27
 
 
 volumes:

@@ -9,8 +9,12 @@ services:
     hostname: zoo
     image: zookeeper:3.4
     volumes:
-      - './data/zoo/data:/data'
-      - './data/zoo/datalog:/datalog'
+      - type: volume
+        source: zoo-data
+        target: /data
+      - type: volume
+        source: zoo-log
+        target: /datalog
 
   node1:
     environment:
@@ -24,7 +28,9 @@ services:
     links:
       - zoo
     volumes:
-      - './data/node1:/kafka'
+      - type: volume
+        source: node1
+        target: /kafka
 
   node2:
     environment:
@@ -38,7 +44,9 @@ services:
     links:
       - zoo
     volumes:
-      - './data/node2:/kafka'
+      - type: volume
+        source: node2
+        target: /kafka
 
   node3:
     environment:
@@ -52,7 +60,9 @@ services:
     links:
       - zoo
     volumes:
-      - './data/node3:/kafka'
+      - type: volume
+        source: node3
+        target: /kafka
 
 
 networks:
@@ -60,4 +70,12 @@ networks:
     name: 'playgrounds_kafka'
     ipam:
       config:
-        - subnet: 172.68.0.0/24
+        - subnet: 172.64.0.96/27
+
+
+volumes:
+  node1:
+  node2:
+  node3:
+  zoo-data:
+  zoo-log:

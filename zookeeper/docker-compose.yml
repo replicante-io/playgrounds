@@ -9,8 +9,12 @@ services:
     hostname: node1
     image: zookeeper:3.4
     volumes:
-      - './data/node1/data:/data'
-      - './data/node1/datalog:/datalog'
+      - type: volume
+        source: node1-data
+        target: /data
+      - type: volume
+        source: node1-log
+        target: /datalog
 
   node2:
     environment:
@@ -19,8 +23,12 @@ services:
     hostname: node2
     image: zookeeper:3.4
     volumes:
-      - './data/node2/data:/data'
-      - './data/node2/datalog:/datalog'
+      - type: volume
+        source: node2-data
+        target: /data
+      - type: volume
+        source: node2-log
+        target: /datalog
 
   node3:
     environment:
@@ -29,8 +37,12 @@ services:
     hostname: node3
     image: zookeeper:3.4
     volumes:
-      - './data/node3/data:/data'
-      - './data/node3/datalog:/datalog'
+      - type: volume
+        source: node3-data
+        target: /data
+      - type: volume
+        source: node3-log
+        target: /datalog
 
   # ZooNavgator WebUI
   zoonavigator-api:
@@ -57,4 +69,13 @@ networks:
     name: 'playgrounds_zookeeper'
     ipam:
       config:
-        - subnet: 172.67.0.0/24
+        - subnet: 172.64.0.64/27
+
+
+volumes:
+  node1-data:
+  node1-log:
+  node2-data:
+  node2-log:
+  node3-data:
+  node3-log:

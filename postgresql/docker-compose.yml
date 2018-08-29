@@ -33,7 +33,9 @@ services:
       - etcd
     hostname: sentinel
     volumes:
-      - './cluster-seed.json:/cluster-seed.json'
+      - type: bind
+        source: ./cluster-seed.json
+        target: /cluster-seed.json
 
   proxy:
     build:
@@ -144,7 +146,7 @@ networks:
     name: 'playgrounds_postgresql'
     ipam:
       config:
-        - subnet: 172.71.0.0/24
+        - subnet: 172.64.0.224/27
 
 
 volumes:

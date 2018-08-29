@@ -11,9 +11,11 @@ services:
       - 'config1:node'
     networks:
       default:
-        ipv4_address: '172.66.0.38'
+        ipv4_address: '172.64.0.53'
     volumes:
-      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-config.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent2:
     build: ../../images/agents
@@ -24,9 +26,11 @@ services:
       - 'config2:node'
     networks:
       default:
-        ipv4_address: '172.66.0.39'
+        ipv4_address: '172.64.0.54'
     volumes:
-      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-config.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent3:
     build: ../../images/agents
@@ -37,9 +41,11 @@ services:
       - 'config3:node'
     networks:
       default:
-        ipv4_address: '172.66.0.40'
+        ipv4_address: '172.64.0.55'
     volumes:
-      - './agent-mongodb-config.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-config.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent4:
     build: ../../images/agents
@@ -50,9 +56,11 @@ services:
       - 'shard1n1:node'
     networks:
       default:
-        ipv4_address: '172.66.0.41'
+        ipv4_address: '172.64.0.56'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent5:
     build: ../../images/agents
@@ -63,9 +71,11 @@ services:
       - 'shard1n2:node'
     networks:
       default:
-        ipv4_address: '172.66.0.42'
+        ipv4_address: '172.64.0.57'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent6:
     build: ../../images/agents
@@ -76,9 +86,11 @@ services:
       - 'shard1n3:node'
     networks:
       default:
-        ipv4_address: '172.66.0.43'
+        ipv4_address: '172.64.0.58'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent7:
     build: ../../images/agents
@@ -89,9 +101,11 @@ services:
       - 'shard2n1:node'
     networks:
       default:
-        ipv4_address: '172.66.0.44'
+        ipv4_address: '172.64.0.59'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent8:
     build: ../../images/agents
@@ -102,9 +116,11 @@ services:
       - 'shard2n2:node'
     networks:
       default:
-        ipv4_address: '172.66.0.45'
+        ipv4_address: '172.64.0.60'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent9:
     build: ../../images/agents
@@ -115,9 +131,11 @@ services:
       - 'shard2n3:node'
     networks:
       default:
-        ipv4_address: '172.66.0.46'
+        ipv4_address: '172.64.0.61'
     volumes:
-      - './agent-mongodb-shard.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-shard.yaml
+        target: /replicante/agent-mongodb.yaml
 
   agent10:
     build: ../../images/agents
@@ -128,6 +146,8 @@ services:
       - 'mongos:node'
     networks:
       default:
-        ipv4_address: '172.66.0.47'
+        ipv4_address: '172.64.0.62'
     volumes:
-      - './agent-mongodb-mongos.yaml:/replicante/agent-mongodb.yaml'
+      - type: bind
+        source: ./agent-mongodb-mongos.yaml
+        target: /replicante/agent-mongodb.yaml

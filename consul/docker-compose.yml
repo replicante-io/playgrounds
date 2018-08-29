@@ -53,7 +53,9 @@ services:
     hostname: controller
     image: consul:1.2.2
     volumes:
-      - '.:/files'
+      - type: bind
+        source: .
+        target: /files
 
 
 networks:
@@ -61,7 +63,7 @@ networks:
     name: 'playgrounds_consul'
     ipam:
       config:
-        - subnet: 172.72.0.0/24
+        - subnet: 172.65.0.0/27
 
 
 volumes:
