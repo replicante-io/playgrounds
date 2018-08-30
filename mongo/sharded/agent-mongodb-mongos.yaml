@@ -5,5 +5,5 @@ agent:
 mongo:
   uri: mongodb://node:27017/
   sharding:
-    cluster_name: 'playground'
+    cluster_name: 'playground-mongodb-sharded'
     mongos_node_name: 'mongos'

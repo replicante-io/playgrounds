@@ -29,6 +29,6 @@ It is possible to create a `docker-compose-options.yml` file to customise the do
 The `docker-compose-options.example.yml` contains example overrides to tune zipkin.
 
 Use is by invoking:
-```
+```bash
 docker-compose -f docker-compose.yml -f docker-compose-options.yml COMMAND
 ```

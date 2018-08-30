@@ -3,7 +3,7 @@ version: '3.5'
 
 services:
   initialiser:
-    build: ../images/replicante
+    build: ../../images/replicante
     command:
       - 'bash'
       - '/files/init.sh'
@@ -18,10 +18,12 @@ services:
     image: mongo:3.6
     hostname: mongo
     volumes:
-      - './data/mongo:/data/db'
+      - type: volume
+        source: mongo
+        target: /data/db
 
   replicante:
-    build: ../images/replicante
+    build: ../../images/replicante
     command:
       - '/replicante/core/target/debug/replicante'
     working_dir: '/replicante'
@@ -30,14 +32,19 @@ services:
     networks:
       - default
       - playgrounds_mongodb_rs
+      - playgrounds_mongodb_sharded
     ports:
       - '16016:16016'
     volumes:
-      - './replicante.yaml:/replicante/replicante.yaml'
-      - './conf.d:/replicante/conf.d'
+      - type: bind
+        source: ./replicante.yaml
+        target: /replicante/replicante.yaml
+      - type: bind
+        source: ./conf.d
+        target: /replicante/conf.d
 
   webui:
-    build: ../images/webui
+    build: ../../images/webui
     command:
       - 'npm'
       - 'run'
@@ -51,10 +58,14 @@ services:
 
 networks:
   default:
-    name: 'playgrounds_replicante'
+    name: 'playgrounds_replicore'
     ipam:
       config:
-        - subnet: 172.64.0.0/24
+        - subnet: 172.32.0.0/27
 
-  playgrounds_mongodb_rs:
-    external: true
+  playgrounds_mongodb_rs: {external: true}
+  playgrounds_mongodb_sharded: {external: true}
+
+
+volumes:
+  mongo:

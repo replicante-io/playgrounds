@@ -1,0 +1,20 @@
+# MongoDB Playground Replica Set
+- cluster: 'playground-mongodb-rs'
+  nodes:
+    - 'http://172.64.0.28:37017/'
+    - 'http://172.64.0.29:37017/'
+    - 'http://172.64.0.30:37017/'
+
+# MongoDB Playground Sharded Cluster
+- cluster: 'playground-mongodb-sharded'
+  nodes:
+    - 'http://172.64.0.53:37017/'
+    - 'http://172.64.0.54:37017/'
+    - 'http://172.64.0.55:37017/'
+    - 'http://172.64.0.56:37017/'
+    - 'http://172.64.0.57:37017/'
+    - 'http://172.64.0.58:37017/'
+    - 'http://172.64.0.59:37017/'
+    - 'http://172.64.0.60:37017/'
+    - 'http://172.64.0.61:37017/'
+    - 'http://172.64.0.62:37017/'

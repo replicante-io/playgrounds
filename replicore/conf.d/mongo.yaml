@@ -1,6 +1,0 @@
-# MongoDB clusters
-- name: replica-set
-  nodes:
-    - 'http://172.65.0.18:37017/'
-    - 'http://172.65.0.19:37017/'
-    - 'http://172.65.0.20:37017/'
