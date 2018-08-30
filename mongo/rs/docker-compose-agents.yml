@@ -16,6 +16,7 @@ services:
       - '37018:37017'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -33,6 +34,7 @@ services:
       - '37019:37017'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -50,5 +52,6 @@ services:
       - '37020:37017'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb.yaml
         target: /replicante/agent-mongodb.yaml

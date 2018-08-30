@@ -14,6 +14,7 @@ services:
         ipv4_address: '172.64.0.53'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-config.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -29,6 +30,7 @@ services:
         ipv4_address: '172.64.0.54'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-config.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -44,6 +46,7 @@ services:
         ipv4_address: '172.64.0.55'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-config.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -59,6 +62,7 @@ services:
         ipv4_address: '172.64.0.56'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -74,6 +78,7 @@ services:
         ipv4_address: '172.64.0.57'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -89,6 +94,7 @@ services:
         ipv4_address: '172.64.0.58'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -104,6 +110,7 @@ services:
         ipv4_address: '172.64.0.59'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -119,6 +126,7 @@ services:
         ipv4_address: '172.64.0.60'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -134,6 +142,7 @@ services:
         ipv4_address: '172.64.0.61'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-shard.yaml
         target: /replicante/agent-mongodb.yaml
 
@@ -149,5 +158,6 @@ services:
         ipv4_address: '172.64.0.62'
     volumes:
       - type: bind
+        read_only: true
         source: ./agent-mongodb-mongos.yaml
         target: /replicante/agent-mongodb.yaml

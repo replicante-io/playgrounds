@@ -1,0 +1,8 @@
+agent:
+  api:
+    bind: '0.0.0.0:3181'
+
+
+zookeeper:
+  cluster: playground-zookeeper
+  target: "node:2181"

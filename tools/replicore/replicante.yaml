@@ -7,6 +7,7 @@ discovery:
   backends:
     files:
       - 'conf.d/mongo.yaml'
+      - 'conf.d/zookeeper.yaml'
 
 
 logging:

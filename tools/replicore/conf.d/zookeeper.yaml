@@ -1,0 +1,6 @@
+# Zookeeper Playground
+- cluster: 'playground-zookeeper'
+  nodes:
+    - 'http://172.64.0.92:3181/'
+    - 'http://172.64.0.93:3181/'
+    - 'http://172.64.0.94:3181/'

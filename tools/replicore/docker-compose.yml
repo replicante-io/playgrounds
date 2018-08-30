@@ -33,6 +33,7 @@ services:
       - default
       - playgrounds_mongodb_rs
       - playgrounds_mongodb_sharded
+      - playgrounds_zookeeper
     ports:
       - '16016:16016'
     volumes:
@@ -65,6 +66,7 @@ networks:
 
   playgrounds_mongodb_rs: {external: true}
   playgrounds_mongodb_sharded: {external: true}
+  playgrounds_zookeeper: {external: true}
 
 
 volumes:
