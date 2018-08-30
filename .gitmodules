@@ -1,3 +1,0 @@
-[submodule "tools/docker-zipkin"]
-	path = tools/docker-zipkin
-	url = https://github.com/openzipkin/docker-zipkin.git

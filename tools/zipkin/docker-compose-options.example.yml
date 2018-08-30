@@ -1,0 +1,40 @@
+version: '3.5'
+
+
+### EXAMPLE 1 ###
+# Tune options for processes.
+services:
+  zipkin:
+    environment:
+      # Enable self-tracing
+      - SELF_TRACING_ENABLED=true
+      # Enable debug logging
+      - JAVA_OPTS=-Dlogging.level.zipkin=DEBUG -Dlogging.level.zipkin2=DEBUG
+
+  zipkin-dependencies:
+    environment:
+      # See dependency processing logs
+      - ZIPKIN_LOG_LEVEL=DEBUG
+      # Adjust memory used by the dependencies job
+      - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+### EXAMPLE 1 ###
+
+
+### EXAMPLE 2 ###
+# Replace mysql with ElasticSearch.
+services:
+  # Run Elasticsearch instead of MySQL
+  storage:
+    image: openzipkin/zipkin-elasticsearch6
+
+  # Switch storage type to Elasticsearch
+  zipkin:
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=storage
+
+  dependencies:
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=storage
+### EXAMPLE 2 ###

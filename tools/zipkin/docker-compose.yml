@@ -1,0 +1,74 @@
+version: '3.5'
+
+
+services:
+  storage:
+    image: openzipkin/zipkin-mysql
+
+  # The zipkin process services the UI, and also exposes a POST endpoint that
+  # instrumentation can send trace data to. Scribe is disabled by default.
+  zipkin:
+    depends_on:
+      - storage
+      - zipkin-kafka-zookeeper
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=storage
+      - KAFKA_BOOTSTRAP_SERVERS=zipkin-kafka-zookeeper:9092
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    volumes:
+      - type: volume
+        source: mysql
+        target: /mysql/data
+
+  # Adds a cron to process spans since midnight every hour, and all spans each day
+  # This data is served by http://localhost:8080/dependency
+  #
+  # For more details, see https://github.com/openzipkin/docker-zipkin-dependencies
+  zipkin-dependencies:
+    image: openzipkin/zipkin-dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=storage
+      # Add the baked-in username and password for the zipkin-mysql image
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      # Uncomment to see dependency processing logs
+      # - ZIPKIN_LOG_LEVEL=DEBUG
+      # Uncomment to adjust memory used by the dependencies job
+      # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+    depends_on:
+      - storage
+
+  zipkin-kafka-zookeeper:
+    image: openzipkin/zipkin-kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=172.32.0.61
+    networks:
+      default:
+        ipv4_address: '172.32.0.61'
+
+  zipkin-ui:
+    image: openzipkin/zipkin-ui
+    environment:
+      - ZIPKIN_BASE_URL=http://zipkin:9411
+    depends_on:
+      - zipkin
+    networks:
+      default:
+        ipv4_address: '172.32.0.62'
+
+
+networks:
+  default:
+    name: 'tools_zipkin'
+    ipam:
+      config:
+        - subnet: 172.32.0.32/27
+
+
+volumes:
+  mysql:
