@@ -31,6 +31,7 @@ services:
       - 'mongo:mongo'
     networks:
       - default
+      - playgrounds_kafka
       - playgrounds_mongodb_rs
       - playgrounds_mongodb_sharded
       - playgrounds_zookeeper
@@ -64,6 +65,7 @@ networks:
       config:
         - subnet: 172.32.0.0/27
 
+  playgrounds_kafka: {external: true}
   playgrounds_mongodb_rs: {external: true}
   playgrounds_mongodb_sharded: {external: true}
   playgrounds_zookeeper: {external: true}

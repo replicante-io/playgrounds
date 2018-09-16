@@ -1,0 +1,12 @@
+agent:
+  api:
+    bind: '0.0.0.0:10092'
+
+
+kafka:
+  target:
+    broker:
+      uri: 'node:9092'
+    jmx: 'node:9999'
+    zookeeper:
+      uri: 'zoo:2181'

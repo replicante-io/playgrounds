@@ -1,0 +1,6 @@
+# #kafka Playground
+- cluster: 'IE5PaULkQ3uuhOBPo8oXNw'
+  nodes:
+    - 'http://172.64.0.124:10092/'
+    - 'http://172.64.0.125:10092/'
+    - 'http://172.64.0.126:10092/'

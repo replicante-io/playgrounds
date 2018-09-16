@@ -6,6 +6,7 @@ discovery:
   interval: 15
   backends:
     files:
+      - 'conf.d/kafka.yaml'
       - 'conf.d/mongo.yaml'
       - 'conf.d/zookeeper.yaml'
 
