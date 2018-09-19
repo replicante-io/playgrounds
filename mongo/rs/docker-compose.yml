@@ -7,7 +7,9 @@ services:
       - 'mongod'
       - '--replSet'
       - 'playground-mongodb-rs'
-    image: mongo:3.2
+      - '--bind_ip'
+      - '0.0.0.0'
+    image: mongo:4.0
     hostname: node1
     volumes:
       - type: volume
@@ -19,9 +21,11 @@ services:
       - 'mongod'
       - '--replSet'
       - 'playground-mongodb-rs'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - node1
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: node2
     volumes:
       - type: volume
@@ -33,10 +37,12 @@ services:
       - 'mongod'
       - '--replSet'
       - 'playground-mongodb-rs'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - node1
       - node2
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: node3
     volumes:
       - type: volume
@@ -51,7 +57,7 @@ services:
       - node1
       - node2
       - node3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: controller
     volumes:
       - type: bind

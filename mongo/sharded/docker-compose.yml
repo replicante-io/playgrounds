@@ -8,7 +8,9 @@ services:
       - '--configsvr'
       - '--replSet'
       - 'config'
-    image: mongo:3.2
+      - '--bind_ip'
+      - '0.0.0.0'
+    image: mongo:4.0
     hostname: config1
     volumes:
       - type: volume
@@ -21,7 +23,9 @@ services:
       - '--configsvr'
       - '--replSet'
       - 'config'
-    image: mongo:3.2
+      - '--bind_ip'
+      - '0.0.0.0'
+    image: mongo:4.0
     hostname: config2
     volumes:
       - type: volume
@@ -34,7 +38,9 @@ services:
       - '--configsvr'
       - '--replSet'
       - 'config'
-    image: mongo:3.2
+      - '--bind_ip'
+      - '0.0.0.0'
+    image: mongo:4.0
     hostname: config3
     volumes:
       - type: volume
@@ -47,11 +53,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard1'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard1n1
     volumes:
       - type: volume
@@ -64,11 +72,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard1'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard1n2
     volumes:
       - type: volume
@@ -81,11 +91,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard1'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard1n3
     volumes:
       - type: volume
@@ -98,11 +110,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard2'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard2n1
     volumes:
       - type: volume
@@ -115,11 +129,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard2'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard2n2
     volumes:
       - type: volume
@@ -132,11 +148,13 @@ services:
       - '--shardsvr'
       - '--replSet'
       - 'shard2'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: shard2n3
     volumes:
       - type: volume
@@ -148,11 +166,13 @@ services:
       - 'mongos'
       - '--configdb'
       - 'config/config1:27019,config2:27019,config3:27019'
+      - '--bind_ip'
+      - '0.0.0.0'
     depends_on:
       - config1
       - config2
       - config3
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: mongos
 
   controller:
@@ -170,7 +190,7 @@ services:
       - shard2n2
       - shard2n3
       - mongos
-    image: mongo:3.2
+    image: mongo:4.0
     hostname: controller
     volumes:
       - type: bind
