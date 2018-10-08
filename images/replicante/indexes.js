@@ -5,7 +5,7 @@ db = db.getSiblingDB("replicante");
 db.agents.createIndex({cluster: 1, host: 1}, {unique: true});
 db.agents_info.createIndex({cluster: 1, host: 1}, {unique: true});
 db.clusters_meta.createIndex({name: 1}, {unique: true});
-db.discoveries.createIndex({name: 1}, {unique: true});
+db.discoveries.createIndex({cluster: 1}, {unique: true});
 db.nodes.createIndex({cluster: 1, name: 1}, {unique: true});
 db.shards.createIndex({cluster: 1, node: 1, id: 1}, {unique: true});
 
