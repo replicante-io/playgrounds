@@ -1,0 +1,180 @@
+version: '3.5'
+
+
+services:
+  agent1:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'config1:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.234'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-config.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent2:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'config2:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.233'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-config.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent3:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'config3:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.232'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-config.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent4:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard1n1:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.231'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent5:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard1n2:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.230'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent6:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard1n3:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.229'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent7:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard2n1:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.228'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent8:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard2n2:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.227'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent9:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'shard2n3:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.226'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb-shard.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+# TODO: figure out issue with mongos 4.0
+#  agent10:
+#    command:
+#      - 'replicante-agent-mongodb'
+#    image: replicanteio/agents:v0.2
+#    links:
+#      - 'mongos:node'
+#    networks:
+#      default: {}
+#      replicante_playgrounds:
+#        ipv4_address: '172.64.255.225'
+#    volumes:
+#      - type: bind
+#        read_only: true
+#        source: ./agent-mongodb-mongos.yaml
+#        target: /opt/replicante/agent-mongodb.yaml
+#    working_dir: '/opt/replicante'
+
+
+networks:
+  replicante_playgrounds:
+    name: 'replicante_playgrounds'
+    external: true

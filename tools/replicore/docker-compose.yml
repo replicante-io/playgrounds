@@ -4,11 +4,11 @@ version: '3.5'
 services:
   initialiser:
     build: ../../images/replicante
+    depends_on:
+      - mongo
     command:
       - 'bash'
       - '/files/init.sh'
-    links:
-      - 'mongo:mongo'
 
   mongo:
     command:
@@ -26,17 +26,18 @@ services:
 
   replicante:
     build: ../../images/replicante
+    depends_on:
+      - mongo
     command:
       - '/replicante/core/target/debug/replicante'
     working_dir: '/replicante'
-    links:
-      - 'mongo:mongo'
     networks:
       - default
-      - playgrounds_kafka
-      - playgrounds_mongodb_rs
-      - playgrounds_mongodb_sharded
-      - playgrounds_zookeeper
+      - host
+      #- playgrounds_kafka
+      #- playgrounds_mongodb_rs
+      #- playgrounds_mongodb_sharded
+      #- playgrounds_zookeeper
     ports:
       - '16016:16016'
     volumes:
@@ -49,13 +50,13 @@ services:
 
   webui:
     build: ../../images/webui
+    depends_on:
+      - replicante
     command:
       - 'npm'
       - 'run'
       - 'server'
     working_dir: '/replicante/webui'
-    links:
-      - 'replicante:replicante'
     ports:
       - '3000:3000'
 
@@ -66,11 +67,14 @@ networks:
     ipam:
       config:
         - subnet: 172.32.0.0/27
+  host:
+    name: 'host'
+    external: true
 
-  playgrounds_kafka: {external: true}
-  playgrounds_mongodb_rs: {external: true}
-  playgrounds_mongodb_sharded: {external: true}
-  playgrounds_zookeeper: {external: true}
+  #playgrounds_kafka: {external: true}
+  #playgrounds_mongodb_rs: {external: true}
+  #playgrounds_mongodb_sharded: {external: true}
+  #playgrounds_zookeeper: {external: true}
 
 
 volumes:

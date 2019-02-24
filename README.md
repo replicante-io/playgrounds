@@ -1,58 +1,86 @@
-Playgrounds
-===========
+# Playgrounds
 Playgrounds are docker and docker-compose projects that run distributed
-datastores locally so that replicante can be developed and tested.
+datastores locally so that replicante can be developed, tested, and demoed.
 
 
-Datastores
-----------
+## Quick start
+The following steps will get you up and running with a supported datastore as well as
+an optional Replicante Core instance ready to manage them.
 
-  * Consul
-  * CouchDB (cluster)
-  * CrateDB
-  * ElasticSearch
-  * Etcd
-  * Kafka
-  * MongoDB
-  * NATS Streaming Server
-  * PostgreSQL (stolon)
-  * Redis (cluster)
-  * Redis (sentinel)
-  * Zookeeper
+### 1. Prepare the network
+All playgrounds projects share the same [docker network](https://docs.docker.com/network/)
+to allow tools managed by separate docker-compose projects to interact with each datastore
+without having to reference resources created and managed by external docker-compose projects.
 
-### Running agents
-Datastore playgrounds support running replicante agents on the side.
-The command line below can be used to start the datastore and the agents.
-
+Ensure the `replicante_playgrounds` docker network exists:
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
+# Check for the network.
+$ docker network ls --filter 'name=replicante_playgrounds'
+NETWORK ID          NAME                DRIVER              SCOPE
+
+# Create the network since it is missing.
+$ docker network create --driver 'bridge' --subnet '172.64.0.0/16' replicante_playgrounds
+<NETWORK ID>
+
+# Check again.
+$ docker network ls --filter 'name=replicante_playgrounds'
+NETWORK ID          NAME                     DRIVER              SCOPE
+<NETWORK ID>        replicante_playgrounds   bridge              local
 ```
 
-### Docker networks
+The IP range used for this network is `172.64.0.0/16` and is described here:
+http://jodies.de/ipcalc?host=172.64.0.0&mask1=16&mask2=
 
-  * 172.64.0.0/27:   MongoDB (Replica Set)
-  * 172.64.0.32/27:  MongoDB (Sharded)
-  * 172.64.0.64/27:  Zookeeper
-  * 172.64.0.96/27:  Kafka
-  * 172.64.0.128/27: Redis (cluster)
-  * 172.64.0.160/27: Redis (sentinel)
-  * 172.64.0.192/27: ElasticSearch
-  * 172.64.0.224/27: PostgreSQL (stolon)
-  * 172.65.0.0/27:   Consul
-  * 172.65.0.32/27:  Etcd
-  * 172.65.0.64/27:  NATS Streaming Server
-  * 172.65.0.96/27:  CouchDB (cluster)
-  * 172.65.0.128/27: CrateDB
+### 2. Start a datastore of choice
+Pick one or more supported datastore from the ones in `stores/` and check their READMEs.
+
+Generally, all that is needed is the following commands.
+The README of each datastore will provide details if the initialisation steps vary.
+
+When starting the project up from scratch an initialisation scrip is used to prepare the
+datastore cluster for operation.
+If this is needed, the first start may take a few minutes to prepare the full system.
+
+For the most common case run the following:
+```bash
+cd stores/<STORE>
+# Run just the datastore
+docker-compose up
+
+# Or the datastore and the agents
+#docker-compose -f docker-compose.yml -f docker-compose-agents.yml up
+```
+
+### 3. Start Replicante Core
+TODO
 
 
-Development tools
------------------
-This repo also stores some development support tools:
+## Static addresses allocation
+Replicante Core needs to know the location of agents and needs to be able to reach them
+over the network to function.
+
+To achieve this:
+
+  * Replicante Core communicates with playground agents on a shared docker network
+    (`replicante_playgrounds`).
+  * Agents are assigned fixed IPs for agent discovery.
+
+The following ranges are allocated to projects to avoid conflicts:
+
+  * Kafka: from `172.64.255.254` to `172.64.255.245`
+  * MongoDB (Replica Set): from `172.64.255.244` to `172.64.255.235`
+  * MongoDB (Sharded): from `172.64.255.234` to `172.64.255.215`
+  * Zookeeper: from `172.64.255.214` to `172.64.255.205`
+
+
+## Development tools
+This repository also includes some tools useful for development, testing, and more:
 
   * Replicore: a all-in-one replicante core setup.
   * [Zipkin](https://zipkin.io/): a distributed tracer.
 
+
 ### Docker networks
 
-  * 172.32.0.0/27:  Replicore
+  * `replicante_playgrounds`: shared between replicore and agents.
   * 172.32.0.32/27: Zipkin

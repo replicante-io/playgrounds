@@ -1,0 +1,66 @@
+version: '3.5'
+
+
+services:
+  agent1:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'node1:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.244'
+    ports:
+      - '37018:37017'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent2:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'node2:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.243'
+    ports:
+      - '37019:37017'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+  agent3:
+    command:
+      - 'replicante-agent-mongodb'
+    image: replicanteio/agents:v0.2
+    links:
+      - 'node3:node'
+    networks:
+      default: {}
+      replicante_playgrounds:
+        ipv4_address: '172.64.255.242'
+    ports:
+      - '37020:37017'
+    volumes:
+      - type: bind
+        read_only: true
+        source: ./agent-mongodb.yaml
+        target: /opt/replicante/agent-mongodb.yaml
+    working_dir: '/opt/replicante'
+
+
+networks:
+  replicante_playgrounds:
+    name: 'replicante_playgrounds'
+    external: true

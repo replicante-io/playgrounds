@@ -17,6 +17,8 @@ services:
         target: /datalog
 
   node1:
+    depends_on:
+      - zoo
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENERS: PLAINTEXT://node1:9092
@@ -25,14 +27,14 @@ services:
       JMX_PORT: 9999
     hostname: node1
     image: wurstmeister/kafka:2.11-2.0.0
-    links:
-      - zoo
     volumes:
       - type: volume
         source: node1
         target: /kafka
 
   node2:
+    depends_on:
+      - zoo
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_LISTENERS: PLAINTEXT://node2:9092
@@ -41,14 +43,14 @@ services:
       JMX_PORT: 9999
     hostname: node2
     image: wurstmeister/kafka:2.11-2.0.0
-    links:
-      - zoo
     volumes:
       - type: volume
         source: node2
         target: /kafka
 
   node3:
+    depends_on:
+      - zoo
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_LISTENERS: PLAINTEXT://node3:9092
@@ -57,20 +59,10 @@ services:
       JMX_PORT: 9999
     hostname: node3
     image: wurstmeister/kafka:2.11-2.0.0
-    links:
-      - zoo
     volumes:
       - type: volume
         source: node3
         target: /kafka
-
-
-networks:
-  default:
-    name: 'playgrounds_kafka'
-    ipam:
-      config:
-        - subnet: 172.64.0.96/27
 
 
 volumes:

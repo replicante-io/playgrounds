@@ -64,14 +64,6 @@ services:
       - "8000:8000"
 
 
-networks:
-  default:
-    name: 'playgrounds_zookeeper'
-    ipam:
-      config:
-        - subnet: 172.64.0.64/27
-
-
 volumes:
   node1-data:
   node1-log:

@@ -198,14 +198,6 @@ services:
         target: /files
 
 
-networks:
-  default:
-    name: 'playgrounds_mongodb_sharded'
-    ipam:
-      config:
-        - subnet: 172.64.0.32/27
-
-
 volumes:
   config1:
   config2:

@@ -58,14 +58,6 @@ services:
         target: /files
 
 
-networks:
-  default:
-    name: 'playgrounds_consul'
-    ipam:
-      config:
-        - subnet: 172.65.0.0/27
-
-
 volumes:
   node1:
   node2:

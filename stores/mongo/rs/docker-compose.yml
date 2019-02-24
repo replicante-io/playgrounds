@@ -65,14 +65,6 @@ services:
         target: /files
 
 
-networks:
-  default:
-    name: 'playgrounds_mongodb_rs'
-    ipam:
-      config:
-        - subnet: 172.64.0.0/27
-
-
 volumes:
   node1:
   node2:
