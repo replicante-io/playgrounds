@@ -2,8 +2,13 @@ api:
   bind: '0.0.0.0:16016'
 
 
+coordinator:
+  backend: 'zookeeper'
+  options:
+    ensemble: 'zookeeper:2181/replicante'
+
+
 discovery:
-  interval: 15
   backends:
     files:
       - 'conf.d/kafka.yaml'
@@ -12,10 +17,24 @@ discovery:
 
 
 logging:
-  level: 'debug'
+  async: false
+  level: debug
+  modules:
+    # Quiet down logs from unknown modules (zookeeper lib).
+    '<unknown>': critical
 
 
 storage:
   backend: mongodb
   options:
     uri: mongodb://mongo:27017/
+
+
+tasks:
+  backend: kafka
+  options:
+    brokers: 'kafka:9092'
+
+
+timeouts:
+  agents_api: 5

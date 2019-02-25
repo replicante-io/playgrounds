@@ -52,7 +52,18 @@ docker-compose up
 ```
 
 ### 3. Start Replicante Core
-TODO
+To start up an instance of replicante core:
+```bash
+cd tools/replicore
+docker-compose up
+```
+
+Once initial setup is complete, the replicante core instance will start looking for
+agents across all projects.
+As you start/stop agents, replicante core will pick up the changes.
+
+For a more advanced development environment checkout the docker-compose project
+in the [replicante core repository](https://github.com/replicante-io/replicante).
 
 
 ## Static addresses allocation
@@ -78,7 +89,6 @@ This repository also includes some tools useful for development, testing, and mo
 
   * Replicore: a all-in-one replicante core setup.
   * [Zipkin](https://zipkin.io/): a distributed tracer.
-
 
 ### Docker networks
 
