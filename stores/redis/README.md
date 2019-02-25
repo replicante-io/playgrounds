@@ -1,17 +1,20 @@
 Redis Playgrounds
 =================
-
 ## Cluster
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd redis/cluster
+cd stores/redis/cluster
 docker-compose up
 ```
 
 ## Sentinel
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd redis/sentinel
+cd stores/redis/sentinel
 
 # The first time around seed config files.
 cp redis.seed.conf redis1.conf

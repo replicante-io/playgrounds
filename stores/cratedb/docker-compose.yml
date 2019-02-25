@@ -53,14 +53,6 @@ services:
         target: /data
 
 
-networks:
-  default:
-    name: 'playgrounds_cratedb'
-    ipam:
-      config:
-        - subnet: 172.65.0.128/27
-
-
 volumes:
   node1:
   node2:

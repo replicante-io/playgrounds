@@ -60,14 +60,6 @@ services:
         target: /data
 
 
-networks:
-  default:
-    name: 'playgrounds_etcd'
-    ipam:
-      config:
-        - subnet: 172.65.0.32/27
-
-
 volumes:
   node1:
   node2:

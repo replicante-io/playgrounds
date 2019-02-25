@@ -141,14 +141,6 @@ services:
         target: /data
 
 
-networks:
-  default:
-    name: 'playgrounds_postgresql'
-    ipam:
-      config:
-        - subnet: 172.64.0.224/27
-
-
 volumes:
   etcd:
   node1:

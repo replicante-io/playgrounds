@@ -64,9 +64,6 @@ services:
 networks:
   default:
     name: 'playgrounds_couchdb'
-    ipam:
-      config:
-        - subnet: 172.65.0.96/27
 
 
 volumes:

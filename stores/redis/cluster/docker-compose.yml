@@ -150,14 +150,6 @@ services:
         target: /files
 
 
-networks:
-  default:
-    name: 'playgrounds_redis'
-    ipam:
-      config:
-        - subnet: 172.64.0.128/27
-
-
 volumes:
   node1:
   node2:

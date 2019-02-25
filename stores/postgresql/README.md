@@ -10,8 +10,10 @@ For this playground we use [stolon](https://github.com/sorintlab/stolon) to
 create a replicated cluster.
 
 
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd postgresql/
+cd stores/postgresql/
 docker-compose up
 ```

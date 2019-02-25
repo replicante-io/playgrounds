@@ -97,13 +97,5 @@ services:
         target: /files
 
 
-networks:
-  default:
-    name: 'playgrounds_nats_streaming'
-    ipam:
-      config:
-        - subnet: 172.65.0.64/27
-
-
 volumes:
   database:

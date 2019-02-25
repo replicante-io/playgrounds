@@ -1,8 +1,10 @@
 Etcd Playgrounds
 ================
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd etcd/
+cd stores/etcd/
 docker-compose up
 
 # Interact with the API

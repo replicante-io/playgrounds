@@ -1,10 +1,10 @@
 ElasticSearch Playgrounds
 =========================
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd elasticsearch/
-# ES cluster runs as UID=1000, make the needed dirs.
-mkdir -p data/node{1,2,3}
+cd stores/elasticsearch/
 
 # ElasticSearch enforces bootstrap checks.
 # To pass them and start, run the following:

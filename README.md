@@ -82,6 +82,7 @@ The following ranges are allocated to projects to avoid conflicts:
   * MongoDB (Replica Set): from `172.64.255.244` to `172.64.255.235`
   * MongoDB (Sharded): from `172.64.255.234` to `172.64.255.215`
   * Zookeeper: from `172.64.255.214` to `172.64.255.205`
+  * Redis (sentinel): from `172.64.255.204` to `172.64.255.185`
 
 
 ## Development tools

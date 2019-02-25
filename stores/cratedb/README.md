@@ -1,8 +1,10 @@
 CrateDB Playground
 ==================
-From the repo root:
+Ensure the `replicante_playgrounds` network exists following README.md in the repo root.
+
+Then, from the repo root:
 ```bash
-cd cratedb/
+cd stores/cratedb/
 
 # CrateDB enforces bootstrap checks.
 # To pass them and start, run the following:
