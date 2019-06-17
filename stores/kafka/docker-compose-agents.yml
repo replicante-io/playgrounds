@@ -5,7 +5,7 @@ services:
   agent1:
     command:
       - 'replicante-agent-kafka'
-    image: replicanteio/agent-kafka:v0.2
+    image: replicanteio/agent-kafka:v0.4
     links:
       - 'node1:node'
     networks:
@@ -22,7 +22,7 @@ services:
   agent2:
     command:
       - 'replicante-agent-kafka'
-    image: replicanteio/agent-kafka:v0.2
+    image: replicanteio/agent-kafka:v0.4
     links:
       - 'node2:node'
     networks:
@@ -39,7 +39,7 @@ services:
   agent3:
     command:
       - 'replicante-agent-kafka'
-    image: replicanteio/agent-kafka:v0.2
+    image: replicanteio/agent-kafka:v0.4
     links:
       - 'node3:node'
     networks:

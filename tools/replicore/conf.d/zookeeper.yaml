@@ -1,5 +1,5 @@
 # Zookeeper Playground
-- cluster: 'playground-zookeeper'
+- cluster_id: 'playground-zookeeper'
   nodes:
     - 'http://172.64.255.214:3181/'
     - 'http://172.64.255.213:3181/'

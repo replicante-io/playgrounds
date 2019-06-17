@@ -5,7 +5,7 @@ services:
   agent1:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'node1:node'
     networks:
@@ -24,7 +24,7 @@ services:
   agent2:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'node2:node'
     networks:
@@ -43,7 +43,7 @@ services:
   agent3:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'node3:node'
     networks:

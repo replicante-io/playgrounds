@@ -5,7 +5,7 @@ services:
   agent1:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'config1:node'
     networks:
@@ -22,7 +22,7 @@ services:
   agent2:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'config2:node'
     networks:
@@ -39,7 +39,7 @@ services:
   agent3:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'config3:node'
     networks:
@@ -56,7 +56,7 @@ services:
   agent4:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard1n1:node'
     networks:
@@ -73,7 +73,7 @@ services:
   agent5:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard1n2:node'
     networks:
@@ -90,7 +90,7 @@ services:
   agent6:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard1n3:node'
     networks:
@@ -107,7 +107,7 @@ services:
   agent7:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard2n1:node'
     networks:
@@ -124,7 +124,7 @@ services:
   agent8:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard2n2:node'
     networks:
@@ -141,7 +141,7 @@ services:
   agent9:
     command:
       - 'replicante-agent-mongodb'
-    image: replicanteio/agents:v0.2
+    image: replicanteio/agents:v0.4
     links:
       - 'shard2n3:node'
     networks:
@@ -159,7 +159,7 @@ services:
 #  agent10:
 #    command:
 #      - 'replicante-agent-mongodb'
-#    image: replicanteio/agents:v0.2
+#    image: replicanteio/agents:v0.4
 #    links:
 #      - 'mongos:node'
 #    networks:

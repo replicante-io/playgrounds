@@ -1,5 +1,6 @@
-# #kafka Playground
-- cluster: 'IE5PaULkQ3uuhOBPo8oXNw'
+# Kafka Playground
+- cluster_id: 'wKl-FNLMR3un8LhBuUaieg'
+  cluster_display_name: 'Kafka'
   nodes:
     - 'http://172.64.255.254:10092/'
     - 'http://172.64.255.253:10092/'

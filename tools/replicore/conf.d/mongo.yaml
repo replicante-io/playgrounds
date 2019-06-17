@@ -1,12 +1,12 @@
 # MongoDB Playground Replica Set
-- cluster: 'playground-mongodb-rs'
+- cluster_id: 'playground-mongodb-rs'
   nodes:
     - 'http://172.64.255.244:37017/'
     - 'http://172.64.255.243:37017/'
     - 'http://172.64.255.242:37017/'
 
 # MongoDB Playground Sharded Cluster
-- cluster: 'playground-mongodb-sharded'
+- cluster_id: 'playground-mongodb-sharded'
   nodes:
     - 'http://172.64.255.234:37017/'
     - 'http://172.64.255.233:37017/'

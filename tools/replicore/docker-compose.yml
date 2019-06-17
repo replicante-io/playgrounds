@@ -43,7 +43,7 @@ services:
       - kafka
       - mongo
       - zookeeper
-    image: replicanteio/replicante:v0.2
+    image: replicanteio/replicante:v0.3
     networks:
       default: {}
       replicante_playgrounds: {}
@@ -63,7 +63,7 @@ services:
       - replicante
     environment:
       REPLI_BACKEND_ROOT: http://replicante:16016
-    image: replicanteio/webui:v0.2
+    image: replicanteio/webui:v0.3
     ports:
       - '3000:3000'
 
