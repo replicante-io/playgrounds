@@ -16,6 +16,13 @@ discovery:
       - 'conf.d/zookeeper.yaml'
 
 
+events:
+  stream:
+    backend: kafka
+    options:
+      brokers: 'kafka:9092'
+
+
 logging:
   async: false
   level: debug
