@@ -5,4 +5,4 @@ agent:
 
 zookeeper:
   cluster: playground-zookeeper
-  target: "node:2181"
+  target: 'node:2181'

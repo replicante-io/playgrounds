@@ -6,6 +6,8 @@ services:
     command:
       - 'replicante-agent-kafka'
     image: replicanteio/agent-kafka:v0.4
+    labels:
+      io.replicante.playground.agent.port: '10092'
     links:
       - 'node1:node'
     networks:
@@ -23,6 +25,8 @@ services:
     command:
       - 'replicante-agent-kafka'
     image: replicanteio/agent-kafka:v0.4
+    labels:
+      io.replicante.playground.agent.port: '10092'
     links:
       - 'node2:node'
     networks:
@@ -40,6 +44,8 @@ services:
     command:
       - 'replicante-agent-kafka'
     image: replicanteio/agent-kafka:v0.4
+    labels:
+      io.replicante.playground.agent.port: '10092'
     links:
       - 'node3:node'
     networks:

@@ -6,6 +6,9 @@ services:
     command:
       - 'replicante-agent-mongodb'
     image: replicanteio/agents:v0.4
+    labels:
+      io.replicante.playground.agent.port: '37017'
+      io.replicante.playground.cluster.id: 'playground-mongodb-rs'
     links:
       - 'node1:node'
     networks:
@@ -25,6 +28,9 @@ services:
     command:
       - 'replicante-agent-mongodb'
     image: replicanteio/agents:v0.4
+    labels:
+      io.replicante.playground.agent.port: '37017'
+      io.replicante.playground.cluster.id: 'playground-mongodb-rs'
     links:
       - 'node2:node'
     networks:
@@ -44,6 +50,9 @@ services:
     command:
       - 'replicante-agent-mongodb'
     image: replicanteio/agents:v0.4
+    labels:
+      io.replicante.playground.agent.port: '37017'
+      io.replicante.playground.cluster.id: 'playground-mongodb-rs'
     links:
       - 'node3:node'
     networks:
