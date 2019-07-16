@@ -9,6 +9,7 @@ services:
     labels:
       io.replicante.playground.agent.port: '37017'
       io.replicante.playground.cluster.id: 'playground-mongodb-rs'
+      io.replicante.playground.cluster.display: 'MongoDB (RS)'
     links:
       - 'node1:node'
     networks:

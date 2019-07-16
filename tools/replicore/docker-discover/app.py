@@ -6,6 +6,7 @@ import requests
 
 LABEL_AGENT_PORT = 'io.replicante.playground.agent.port'
 LABEL_CLUSTER_ID = 'io.replicante.playground.cluster.id'
+LABEL_CLUSTER_DISPLAY = 'io.replicante.playground.cluster.display'
 LABEL_COMPOSE_PROJECT = 'com.docker.compose.project'
 NETWORK_PLAYGROUNDS = 'replicante_playgrounds'
 REQUEST_TIMEOUT = 1
@@ -26,9 +27,11 @@ def agent_address(container):
 
 def discover_cluster(containers):
     cluster_id = discover_id(containers)
+    display_name = discover_display_name(containers)
     nodes = list(map(agent_address, containers))
     return {
         'cluster_id': cluster_id,
+        'display_name': display_name,
         'nodes': nodes
     }
 
@@ -56,6 +59,24 @@ def discover_id(containers):
     response.raise_for_status()
     response = response.json()
     return response['cluster_id']
+
+def discover_display_name(containers):
+    cluster_names = set([
+        container.labels[LABEL_CLUSTER_DISPLAY]
+        for container in containers
+        if container.labels.get(LABEL_CLUSTER_DISPLAY)
+    ])
+    if len(cluster_names) > 1:
+        ids = map(lambda c: c.id, containers)
+        ids = ', '.join(ids)
+        raise Exception(
+            'Containers reported different cluster display names: {}'
+            .format(ids)
+        )
+    if len(cluster_names) == 1:
+        return list(cluster_names)[0]
+    return None
+
 
 def group_by_label(label, containers):
     groups = defaultdict(list)

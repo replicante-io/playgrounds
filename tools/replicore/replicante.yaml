@@ -10,10 +10,8 @@ coordinator:
 
 discovery:
   backends:
-    files:
-      - 'conf.d/kafka.yaml'
-      - 'conf.d/mongo.yaml'
-      - 'conf.d/zookeeper.yaml'
+    http:
+      - url: 'http://discovery:5000/discover'
 
 
 events:
@@ -32,9 +30,15 @@ logging:
 
 
 storage:
-  backend: mongodb
-  options:
-    uri: mongodb://mongo:27017/
+  primary:
+    backend: mongodb
+    options:
+      uri: mongodb://mongo:27017/
+
+  view:
+    backend: mongodb
+    options:
+      uri: mongodb://mongo:27017/
 
 
 tasks:

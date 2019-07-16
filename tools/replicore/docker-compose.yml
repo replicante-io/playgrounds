@@ -58,7 +58,7 @@ services:
       - kafka
       - mongo
       - zookeeper
-    image: replicanteio/replicante:v0.3
+    image: replicanteio/replicante:v0.4
     networks:
       default: {}
       replicante_playgrounds: {}
