@@ -3,6 +3,22 @@ Playgrounds are docker and docker-compose projects that run distributed
 datastores locally so that replicante can be developed, tested, and demoed.
 
 
+## Code of Conduct
+Our aim is to build a thriving, healthy and diverse community.  
+To help us get there we decided to adopt the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/)
+for all our projects.
+
+Any issue should be reported to [stefano-pogliani](https://github.com/stefano-pogliani)
+by emailing [conduct@replicante.io](mailto:conduct@replicante.io).  
+Unfortunately, as the community lucks members, we are unable to provide a second contact to report incidents to.  
+We would still encourage people to report issues, even anonymously.
+
+In addition to the Code Of Conduct below the following documents are relevant:
+
+  * The [Reporting Guideline](https://www.replicante.io/conduct/reporting), especially if you wish to report an incident.
+  * The [Enforcement Guideline](https://www.replicante.io/conduct/enforcing)
+
+
 ## Quick start
 The following steps will get you up and running with a supported datastore as well as
 an optional Replicante Core instance ready to manage them.
@@ -96,19 +112,3 @@ This repository also includes some tools useful for development, testing, and mo
 
   * `replicante_playgrounds`: shared between replicore and agents.
   * 172.32.0.32/27: Zipkin
-
-
-## Code of Conduct
-Our aim is to build a thriving, healthy and diverse community.  
-To help us get there we decided to adopt the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/)
-for all our projects.
-
-Any issue should be reported to [stefano-pogliani](https://github.com/stefano-pogliani)
-by emailing [conduct@replicante.io](mailto:conduct@replicante.io).  
-Unfortunately, as the community lucks members, we are unable to provide a second contact to report incidents to.  
-We would still encourage people to report issues, even anonymously.
-
-In addition to the Code Of Conduct below the following documents are relevant:
-
-  * The [Reporting Guideline](https://www.replicante.io/conduct/reporting), especially if you wish to report an incident.
-  * The [Enforcement Guideline](https://www.replicante.io/conduct/enforcing)
