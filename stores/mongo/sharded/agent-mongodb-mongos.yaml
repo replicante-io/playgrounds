@@ -1,9 +1,0 @@
-agent:
-  api:
-    bind: '0.0.0.0:37017'
-
-mongo:
-  uri: mongodb://node:27017/
-  sharding:
-    cluster_name: 'playground-mongodb-sharded'
-    mongos_node_name: 'mongos'

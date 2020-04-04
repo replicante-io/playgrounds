@@ -44,25 +44,6 @@ services:
         source: node3-log
         target: /datalog
 
-  # ZooNavgator WebUI
-  zoonavigator-api:
-    environment:
-      API_HTTP_PORT: 9000
-    hostname: zoonavigator-api
-    image: elkozmon/zoonavigator-api:0.5.0
-
-  zoonavigator-web:
-    environment:
-      WEB_HTTP_PORT: 8000
-      API_HOST: "zoonavigator-api"
-      API_PORT: 9000
-    hostname: zoonavigator-web
-    image: elkozmon/zoonavigator-web:0.5.0
-    links:
-      - zoonavigator-api
-    ports:
-      - "8000:8000"
-
 
 volumes:
   node1-data:

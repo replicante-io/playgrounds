@@ -1,6 +1,13 @@
 agent:
+  actions:
+    execute_interval: 120
+
   api:
     bind: '0.0.0.0:3181'
+    tls:
+      clients_ca_bundle: '/pki/ca/certs/ca.crt'
+      server_cert: '/pki/ca/certs/server.crt'
+      server_key: '/pki/ca/keys/server.key'
 
 
 zookeeper:

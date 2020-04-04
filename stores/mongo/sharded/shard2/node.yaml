@@ -1,0 +1,53 @@
+containers:
+  - name: mongo
+    image: 'mongo:4.2'
+    command:
+      - 'mongod'
+      - '--shardsvr'
+      - '--replSet'
+      - '{{ CLUSTER_ID }}-shard2'
+      - '--bind_ip'
+      - '0.0.0.0'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data/db'
+        relabel: private
+
+  - name: repliagent
+    image: replicanteio/agents:v0.4
+    command:
+      - '/run.sh'
+    env:
+      CLUSTER_ID: '{{ CLUSTER_ID }}'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/../shard-agent.yaml'
+        target: '/opt/replicante/agent-mongodb.template.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ CONF_ROOT }}/../run.sh'
+        target: '/run.sh'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ PKI_ROOT }}'
+        target: '/tls'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ DATA_ROOT }}/agent'
+        target: '/data'
+        relabel: private
+        uid: 1616
+    workdir: '/opt/replicante'
+
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 27018
+  - host: 0
+    name: 'agent'
+    pod: 37017
