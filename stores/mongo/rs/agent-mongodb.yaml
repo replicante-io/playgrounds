@@ -1,6 +1,12 @@
 agent:
   api:
     bind: '0.0.0.0:37017'
+    threads_count: 2
+    tls:
+      clients_ca_bundle: /tls/replidev/certs/replidev.crt
+      server_cert: /tls/replidev/certs/server.crt
+      server_key: /tls/replidev/keys/server.key
+  db: '/data/agent.db'
 
 mongo:
-  uri: mongodb://node:27017/
+  uri: mongodb://localhost:27017/

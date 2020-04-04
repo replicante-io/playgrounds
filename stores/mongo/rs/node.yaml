@@ -1,0 +1,45 @@
+containers:
+  - name: mongo
+    image: 'mongo:4.2'
+    command:
+      - 'mongod'
+      - '--replSet'
+      - '{{ CLUSTER_ID }}'
+      - '--bind_ip'
+      - '0.0.0.0'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data/db'
+        relabel: private
+
+  - name: repliagent
+    image: replicanteio/agents:v0.4
+    command:
+      - 'replicante-agent-mongodb'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/agent-mongodb.yaml'
+        target: '/opt/replicante/agent-mongodb.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ PKI_ROOT }}'
+        target: '/tls'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ DATA_ROOT }}/agent'
+        target: '/data'
+        relabel: private
+        uid: 1616
+    workdir: '/opt/replicante'
+
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 27017
+  - host: 0
+    name: 'agent'
+    pod: 37017
