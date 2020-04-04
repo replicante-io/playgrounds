@@ -1,0 +1,46 @@
+containers:
+  - name: kafka
+    image: 'wurstmeister/kafka:2.12-2.4.1'
+    env:
+      KAFKA_ZOOKEEPER_CONNECT: 'podman-host:2181/{{ CLUSTER_ID }}'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:{{ AUTOPORT_STORE }}'
+      KAFKA_LISTENERS: 'PLAINTEXT://localhost:9092'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
+      JMX_PORT: 9999
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/kafka'
+        relabel: private
+
+  - name: repliagent
+    image: replicanteio/agent-kafka:v0.4
+    command:
+      - 'replicante-agent-kafka'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/agent-kafka.yaml'
+        target: '/opt/replicante/agent-kafka.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ PKI_ROOT }}'
+        target: '/tls'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ DATA_ROOT }}/agent'
+        target: '/data'
+        relabel: private
+        uid: 1616
+    workdir: '/opt/replicante'
+
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 9092
+  - host: 0
+    name: 'agent'
+    pod: 10092

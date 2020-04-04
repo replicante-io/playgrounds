@@ -1,12 +1,17 @@
 agent:
   api:
     bind: '0.0.0.0:10092'
-
+    threads_count: 2
+    tls:
+      clients_ca_bundle: /tls/replidev/certs/replidev.crt
+      server_cert: /tls/replidev/certs/server.crt
+      server_key: /tls/replidev/keys/server.key
+  db: '/data/agent.db'
 
 kafka:
   target:
     broker:
-      uri: 'node:9092'
-    jmx: 'node:9999'
+      uri: 'localhost:9092'
+    jmx: 'localhost:9999'
     zookeeper:
-      uri: 'zoo:2181'
+      uri: 'podman-host:2181'

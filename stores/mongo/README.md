@@ -1,39 +1,16 @@
 # MongoDB Playgrounds
-Easily create, extend and delete containerised development MongoDB replica sets and Sharded cluster.
-The nodes will be exposed to the host with a randomly assigned port.
-
 > Remember: Pods (nodes) can only access each others through the podman host,
 > accessible within pods with the `podman-host` DNS name.
 
 
-## Ensure TLS certificates are available
-If the certificates are missing they will be generated:
-```bash
-$ replidev gen-certs
---> Generating CA certificates
---> Generating Server certificates
---> Generating Client certificates
---> Bundling some certs
-CA Certificate:     ./data/pki/replidev/certs/replidev.crt
-CA Private Key:     ./data/pki/replidev/keys/replidev.key
-Client Bundle:      ./data/pki/replidev/bundles/client.pem
-Client Certificate: ./data/pki/replidev/certs/client.crt
-Client Private Key: ./data/pki/replidev/keys/client.key
-Server Bundle:      ./data/pki/replidev/bundles/server.pem
-Server Certificate: ./data/pki/replidev/certs/server.crt
-Server Private Key: ./data/pki/replidev/keys/server.key
-```
+## TLS Certificates
+TLS certificates are used by the agents API.
+They are required to enable the actions engine.
 
-Otherwise nothing happens:
 ```bash
+# Generate TLS certificates for servers and clients.
+# This command does notthing if certs already exist so it is safe to run many time.
 $ replidev gen-certs
-Certificates already available at ./data/pki
-To regenerate the certificates invoke the command with --regen
-```
-
-Ensure the private keys are accessible from non-root processes in pods:
-```bash
-$ chmod 0755 ./data/pki/replidev/keys/
 ```
 
 
