@@ -4,7 +4,7 @@ containers:
     command:
       - 'mongos'
       - '--configdb'
-      - '{{ CLUSTER_ID }}-conf/podman-host:10000'
+      - '{{ CLUSTER_ID }}-conf/{{ extra.conf-nodes }}'
       - '--bind_ip'
       - '0.0.0.0'
 

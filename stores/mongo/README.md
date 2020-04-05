@@ -120,22 +120,22 @@ $ podman exec -it $CONF_NODE mongo --port 27019 \
 Next up, create a couple of shards:
 ```bash
 # Create a one-node shard replica set.
-$ replidev play node-start mongo/sharded/shard1 --cluster-id sharded-cluster
+# NOTE: A shard id MUST be passed for the pod support defferent .
+$ replidev play node-start mongo/sharded/shard --cluster-id sharded-cluster --var 'shard=1'
 $ podman exec -it $SHARD1_NODE mongo --port 27018 \
   --eval 'rs.initiate({_id:"sharded-cluster-shard1", members: [{_id: 0, host: "podman-host:10002"}]});'
 
 # Create a second one-node shard replica set.
-$ replidev play node-start mongo/sharded/shard2 --cluster-id sharded-cluster
+$ replidev play node-start mongo/sharded/shard --cluster-id sharded-cluster --var 'shard=2'
 $ podman exec -it $SHARD2_NODE mongo --port 27018 \
   --eval 'rs.initiate({_id:"sharded-cluster-shard2", members: [{_id: 0, host: "podman-host:10004"}]});'
 
 # Additional nodes for each shard can easily be added as for replica sets.
-# Additional shards can also be added by defining a new pod class (mongo/sharded/shard3, mongo/sharded/shard4, ...).
+# Additional shards can also be added by setting the `shard` extra variable to new values.
 ```
 
 Finally, create a `mongos` node and tie everything together:
 ```bash
-# You WILL HAVE to set the correct conf RS port(s) in stores/mongo/sharded/mongos/node.yaml first.
-$ replidev play node-start mongo/sharded/mongos --cluster-id sharded-cluster
+$ replidev play node-start mongo/sharded/mongos --cluster-id sharded-cluster --var 'conf-nodes=podman-host:10000'
 $ podman exec -it $MONGOS_NODE mongo --eval 'sh.addShard("sharded-cluster-shard1/podman-host:10002");'
 ```

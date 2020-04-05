@@ -1,0 +1,63 @@
+containers:
+  - name: zookeeper
+    image: zookeeper:3.6
+    env:
+      ZOO_MY_ID: '{{ extra.my_id }}'
+      # ZOO_SERVERS is a bit of a pain.
+      # It is a space separated list of nodes and their addresses.
+      # Additionally the current host should bind to 0.0.0.0 + container ports
+      # while others should connect to podman-host + the host ports.
+      ZOO_SERVERS: >-
+        {{#each extra.cluster}}
+        {{#if (eq ../extra.my_id id)}}
+        server.{{id}}=0.0.0.0:2888:3888;2181
+        {{else}}
+        server.{{id}}=podman-host:{{port}}:{{election}};{{client}}
+        {{/if}}
+        {{/each}}
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data'
+        relabel: private
+      - type: bind
+        src: '{{ DATA_ROOT }}/log'
+        target: '/datalog'
+        relabel: private
+
+  - name: repliagent
+    image: replicanteio/agents:v0.4
+    command:
+      - 'replicante-agent-zookeeper'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/agent-zookeeper.yaml'
+        target: '/opt/replicante/agent-zookeeper.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ PKI_ROOT }}'
+        target: '/tls'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ DATA_ROOT }}/agent'
+        target: '/data'
+        relabel: private
+        uid: 1616
+    workdir: '/opt/replicante'
+
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 2888
+  - host: 0
+    name: 'election'
+    pod: 3888
+  - host: 0
+    name: 'client'
+    pod: 2181
+  - host: 0
+    name: 'agent'
+    pod: 3181

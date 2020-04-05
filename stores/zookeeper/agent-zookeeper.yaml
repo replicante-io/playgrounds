@@ -1,15 +1,12 @@
 agent:
-  actions:
-    execute_interval: 120
-
   api:
     bind: '0.0.0.0:3181'
+    threads_count: 2
     tls:
-      clients_ca_bundle: '/pki/ca/certs/ca.crt'
-      server_cert: '/pki/ca/certs/server.crt'
-      server_key: '/pki/ca/keys/server.key'
-
+      clients_ca_bundle: /tls/replidev/certs/replidev.crt
+      server_cert: /tls/replidev/certs/server.crt
+      server_key: /tls/replidev/keys/server.key
+  db: '/data/agent.db'
 
 zookeeper:
-  cluster: playground-zookeeper
-  target: 'node:2181'
+  cluster: 'INJECTED_CLUSTER_ID'

@@ -1,6 +1,8 @@
 # Playgrounds
-Playgrounds are docker and docker-compose projects that run distributed
+Playgrounds are containerised processes that run distributed
 datastores locally so that replicante can be developed, tested, and demoed.
+
+Playgrounds are built using `replidev` to read a custom YAML definition and start `podman` pods.
 
 
 ## Code of Conduct
@@ -18,6 +20,36 @@ In addition to the Code Of Conduct below the following documents are relevant:
   * The [Reporting Guideline](https://www.replicante.io/conduct/reporting), especially if you wish to report an incident.
   * The [Enforcement Guideline](https://www.replicante.io/conduct/enforcing)
 
+
+## Quick start
+The following steps will get you up and running with a supported datastore as well as
+an optional Replicante Core instance ready to manage them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TODO: rewrite the below
 
 ## Quick start
 The following steps will get you up and running with a supported datastore as well as

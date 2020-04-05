@@ -1,0 +1,16 @@
+[{
+  "id": "0",
+  "port": 10000,
+  "election": 10001,
+  "client": 10002
+}, {
+  "id": "1",
+  "port": 10004,
+  "election": 10005,
+  "client": 10006
+}, {
+  "id": "2",
+  "port": 10008,
+  "election": 10009,
+  "client": 10010
+}]

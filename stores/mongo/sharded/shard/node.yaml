@@ -5,7 +5,7 @@ containers:
       - 'mongod'
       - '--shardsvr'
       - '--replSet'
-      - '{{ CLUSTER_ID }}-shard2'
+      - '{{ CLUSTER_ID }}-shard{{ extra.shard }}'
       - '--bind_ip'
       - '0.0.0.0'
     mount:
@@ -22,7 +22,7 @@ containers:
       CLUSTER_ID: '{{ CLUSTER_ID }}'
     mount:
       - type: bind
-        src: '{{ CONF_ROOT }}/../shard-agent.yaml'
+        src: '{{ CONF_ROOT }}/agent-mongodb.yaml'
         target: '/opt/replicante/agent-mongodb.template.yaml'
         relabel: private
         ro: 'true'
