@@ -1,0 +1,55 @@
+containers:
+  - name: sentinel
+    image: sorintlab/stolon:v0.16.0-pg12
+    command:
+      - 'stolon-sentinel'
+      - '--cluster-name'
+      - '{{ CLUSTER_ID }}'
+      - '--store-backend=consul'
+      - '--store-endpoints'
+      - 'http://podman-host:8500'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/cluster-seed.json'
+        target: '/cluster-seed.json'
+        relabel: private
+        ro: 'true'
+  - name: keeper
+    image: sorintlab/stolon:v0.16.0-pg12
+    command:
+      - 'stolon-keeper'
+      - '--cluster-name'
+      - '{{ CLUSTER_ID }}'
+      - '--store-backend=consul'
+      - '--store-endpoints=http://podman-host:8500'
+      - '--data-dir=/data'
+      - '--pg-listen-address=127.0.0.1'
+      - '--pg-advertise-address=podman-host'
+      - '--pg-advertise-port={{ HOST_PORT_STORE }}'
+      - '--pg-repl-username=stolon'
+      - '--pg-repl-auth-method=trust'
+      - '--pg-su-auth-method=trust'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data'
+        relabel: private
+        uid: 1000
+    user: stolon
+  - name: proxy
+    image: sorintlab/stolon:v0.16.0-pg12
+    command:
+      - 'stolon-proxy'
+      - '--cluster-name'
+      - '{{ CLUSTER_ID }}'
+      - '--store-backend=consul'
+      - '--store-endpoints=http://podman-host:8500'
+      - '--port=25432'
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 5432
+  - host: 0
+    name: 'client'
+    pod: 25432

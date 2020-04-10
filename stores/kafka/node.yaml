@@ -2,7 +2,7 @@ containers:
   - name: kafka
     image: 'wurstmeister/kafka:2.12-2.4.1'
     env:
-      KAFKA_ZOOKEEPER_CONNECT: 'podman-host:2181/{{ CLUSTER_ID }}'
+      KAFKA_ZOOKEEPER_CONNECT: 'podman-host:2181/kafka/{{ CLUSTER_ID }}'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:{{ HOST_PORT_STORE }}'
       KAFKA_LISTENERS: 'PLAINTEXT://localhost:9092'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -17,11 +17,16 @@ containers:
   - name: repliagent
     image: replicanteio/agent-kafka:v0.4
     command:
-      - 'replicante-agent-kafka'
+      - '/run.sh'
     mount:
       - type: bind
         src: '{{ CONF_ROOT }}/agent-kafka.yaml'
-        target: '/opt/replicante/agent-kafka.yaml'
+        target: '/opt/replicante/agent-kafka.template.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ CONF_ROOT }}/run.sh'
+        target: '/run.sh'
         relabel: private
         ro: 'true'
       - type: bind

@@ -1,4 +1,4 @@
-# Kafka Playgrounds
+# Kafka
 > Remember: Pods (nodes) can only access each others through the podman host,
 > accessible within pods with the `podman-host` DNS name.
 
@@ -9,7 +9,7 @@ They are required to enable the actions engine.
 
 ```bash
 # Generate TLS certificates for servers and clients.
-# This command does notthing if certs already exist so it is safe to run many time.
+# This command does nothing if certs already exist so it is safe to run many time.
 $ replidev gen-certs
 ```
 

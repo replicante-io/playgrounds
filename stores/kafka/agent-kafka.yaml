@@ -14,4 +14,4 @@ kafka:
       uri: 'localhost:9092'
     jmx: 'localhost:9999'
     zookeeper:
-      uri: 'podman-host:2181'
+      uri: 'podman-host:2181/kafka/INJECTED_CLUSTER_ID'
