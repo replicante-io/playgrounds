@@ -1,0 +1,36 @@
+containers:
+  - name: consul
+    image: consul:1.7
+    command:
+      - 'consul'
+      - 'agent'
+      - '--server'
+      - '--advertise={{ PODMAN_IP }}'
+      - '--serf-lan-port={{ HOST_PORT_STORE }}'
+      - '--server-port={{ HOST_PORT_SERVER }}'
+      - '--data-dir=/data'
+      - '--ui'
+      # If --var join=address is passed join a cluster, otherwise bootstrap it.
+      - '{{#if extra.join}}--join={{ extra.join }}{{else}}--bootstrap-expect=1{{/if}}'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data'
+        relabel: private
+        uid: 100
+
+
+ports:
+  - host: 0
+    name: 'store'
+    protocols:
+      - tcp
+      - udp
+  - host: 0
+    name: 'server'
+    protocols:
+      - tcp
+      - udp
+  - host: 0
+    name: 'client'
+    pod: 8500
