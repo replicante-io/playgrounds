@@ -1,0 +1,26 @@
+containers:
+  - name: elasticsearch
+    image: elasticsearch:7.6.2
+    command:
+      - 'elasticsearch'
+      - '-Ehttp.port={{ HOST_PORT_CLIENT }}'
+      - '-Enetwork.publish_host={{ PODMAN_IP }}'
+      - '-Etransport.port={{ HOST_PORT_STORE }}'
+      - '{{#if extra.seed}}-Ediscovery.seed_hosts=podman-host:{{ extra.seed }}{{else}}-Ecluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
+    env:
+      node.name: '{{ NODE_NAME }}'
+      cluster.name: '{{ CLUSTER_ID }}'
+      ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: /usr/share/elasticsearch/data
+        relabel: private
+    ulimit:
+      nofile: 65536
+
+ports:
+  - host: 0
+    name: 'store'
+  - host: 0
+    name: 'client'

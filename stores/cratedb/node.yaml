@@ -1,0 +1,29 @@
+containers:
+  - name: cratedb
+    image: crate:4.1
+    command:
+      - 'crate'
+      - '-Cnetwork.bind_host=_local_'
+      - '-Cpsql.port=5432'
+      - '-Cudc.enabled=false'
+      - '-Ccluster.name={{ CLUSTER_ID }}'
+      - '-Chttp.port={{ HOST_PORT_CLIENT }}'
+      - '-Cnetwork.publish_host={{ PODMAN_IP }}'
+      - '-Cnode.name={{ NODE_NAME }}'
+      - '-Ctransport.tcp.port={{ HOST_PORT_STORE }}'
+      - '{{#if extra.seed}}-Cdiscovery.seed_hosts=podman-host:{{ extra.seed }}{{else}}-Ccluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
+    env:
+      CRATE_HEAP_SIZE: '512m'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/db'
+        target: '/data'
+        relabel: private
+    ulimit:
+      nofile: 65536
+
+ports:
+  - host: 0
+    name: 'store'
+  - host: 0
+    name: 'client'
