@@ -1,0 +1,31 @@
+containers:
+  - name: etcd
+    image: quay.io/coreos/etcd:v3.4.7
+    command:
+      - '/run.sh'
+      - '{{ CLUSTER_ID }}'
+      - '{{#if extra.join-port}}existing{{else}}new{{/if}}'
+      - '{{ NODE_NAME }}'
+      - '{{ HOST_PORT_STORE }}'
+      - '{{ extra.join-name }}'
+      - '{{ extra.join-port }}'
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/run.sh'
+        target: '/run.sh'
+        relabel: private
+        ro: 'true'
+      #- type: bind
+      #  src: '{{ DATA_ROOT }}/db'
+      #  target: '/data'
+      #  relabel: private
+      #  uid: 100
+
+
+ports:
+  - host: 0
+    name: 'store'
+    pod: 2380
+  - host: 0
+    name: 'client'
+    pod: 2379
