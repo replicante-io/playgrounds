@@ -1,6 +1,0 @@
-# Zookeeper Playground
-- cluster_id: 'playground-zookeeper'
-  nodes:
-    - 'http://172.64.255.214:3181/'
-    - 'http://172.64.255.213:3181/'
-    - 'http://172.64.255.212:3181/'
