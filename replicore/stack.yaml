@@ -1,0 +1,90 @@
+containers:
+  - name: zookeeper
+    image: zookeeper:3.5
+    env:
+      ZOO_MY_ID: 1
+    mount:
+      - type: bind
+        src: '{{ CONF_ROOT }}/zookeeper.conf'
+        target: '/conf/zoo.cfg'
+        relabel: private
+        ro: 'false'
+      - type: bind
+        src: '{{ DATA_ROOT }}/zoo-data'
+        target: '/data'
+        relabel: private
+      - type: bind
+        src: '{{ DATA_ROOT }}/zoo-log'
+        target: '/datalog'
+        relabel: private
+    # Wait for zookeeper to start and expire any stale sessions.
+    start_delay: 10
+
+  - name: mongo
+    image: mongo:4.2
+    initialise:
+      - /replicore/init.sh
+    command:
+      - mongod
+      - --replSet
+      - replistore
+      - --bind_ip
+      - 0.0.0.0
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/mongo'
+        target: /data/db
+        relabel: private
+      - type: bind
+        src: '{{ CONF_ROOT }}/mongo'
+        target: /replicore
+        relabel: private
+        ro: 'true'
+    # Wait for mongo server to start so the init script can run.
+    start_delay: 10
+
+  - name: kafka
+    image: wurstmeister/kafka:2.12-2.4.1
+    env:
+      JMX_PORT: 9999
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: 'PLAINTEXT://127.0.0.1:9092'
+      KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
+      KAFKA_NUM_PARTITIONS: 4
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:2181/kafka'
+      KAFKA_ADVERTISED_HOST_NAME: 'localhost'
+    mount:
+      - type: bind
+        src: '{{ DATA_ROOT }}/kafka'
+        target: /kafka
+        relabel: private
+
+  - name: app
+    image: replicanteio/replicante:v0.5
+    mount:
+      - type: bind
+        src: '{{ PKI_ROOT }}'
+        target: '/tls'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ CONF_ROOT }}/replicante.yaml'
+        target: '/home/replicante/replicante.yaml'
+        relabel: private
+        ro: 'true'
+    workdir: '/home/replicante'
+
+  - name: ui
+    image: replicanteio/webui:v0.3
+    env:
+      REPLI_BACKEND_ROOT: 'http://localhost:16016'
+
+
+ports:
+  - host: 16016
+    name: 'replicore-api'
+    pod: 16016
+  - host: 3000
+    name: 'replicore-ui'
+    pod: 3000

@@ -1,0 +1,56 @@
+coordinator:
+  backend: 'zookeeper'
+  options:
+    ensemble: 'localhost:2181/replicante'
+
+
+discovery:
+  backends:
+    http:
+      - url: 'http://podman-host:9876'
+
+
+events:
+  snapshots:
+    enabled: false
+  stream:
+    backend: kafka
+    options:
+      brokers: 'localhost:9092'
+
+
+storage:
+  primary:
+    backend: mongodb
+    options:
+      db: replicore
+      uri: mongodb://localhost:27017/
+
+  view:
+    backend: mongodb
+    options:
+      db: repliview
+      uri: mongodb://localhost:27017/
+
+
+tasks:
+  backend: 'kafka'
+  options:
+    brokers: 'localhost:9092'
+
+
+timeouts:
+  agents_api: 15
+
+      
+# Section for settings that will move to the DB once namespaces are fully introduced.
+# For the time being, these options allow the system to pretend a namespace is available
+# when needed but without hacing to implement all the details around them
+# (DB changes, API changes, namespace provisioning, more ...)
+#
+# This is hardly good design but it helps more quickly get to playbooks.
+# Once initial playbooks functionality is implemented, namespaces WILL be added next.
+tmp_namespace_settings:
+  https_transport:
+    ca_bundle: '/tls/certs/replidev.crt'
+    client_key: '/tls/keys/client.key'
