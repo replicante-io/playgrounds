@@ -7,7 +7,8 @@ coordinator:
 discovery:
   backends:
     http:
-      - url: 'http://podman-host:9876'
+      - url: 'http://podman-host:9876/discover'
+        method: GET
 
 
 events:
@@ -53,4 +54,4 @@ timeouts:
 tmp_namespace_settings:
   https_transport:
     ca_bundle: '/tls/certs/replidev.crt'
-    client_key: '/tls/keys/client.key'
+    client_key: '/tls/bundles/client.pem'

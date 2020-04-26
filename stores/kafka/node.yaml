@@ -18,6 +18,8 @@ containers:
     image: replicanteio/agent-kafka:v0.4
     command:
       - '/run.sh'
+    env:
+      CLUSTER_ID: '{{ CLUSTER_ID }}'
     mount:
       - type: bind
         src: '{{ CONF_ROOT }}/agent-kafka.yaml'

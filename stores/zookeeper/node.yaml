@@ -2,6 +2,7 @@ containers:
   - name: zookeeper
     image: zookeeper:3.6
     env:
+      ZOO_4LW_COMMANDS_WHITELIST: 'conf, stat, srvr'
       ZOO_MY_ID: '{{ extra.my_id }}'
       # ZOO_SERVERS is a bit of a pain.
       # It is a space separated list of nodes and their addresses.
@@ -28,11 +29,18 @@ containers:
   - name: repliagent
     image: replicanteio/agents:v0.4
     command:
-      - 'replicante-agent-zookeeper'
+      - '/run.sh'
+    env:
+      CLUSTER_ID: '{{ CLUSTER_ID }}'
     mount:
       - type: bind
         src: '{{ CONF_ROOT }}/agent-zookeeper.yaml'
-        target: '/opt/replicante/agent-zookeeper.yaml'
+        target: '/opt/replicante/agent-zookeeper.template.yaml'
+        relabel: private
+        ro: 'true'
+      - type: bind
+        src: '{{ CONF_ROOT }}/run.sh'
+        target: '/run.sh'
         relabel: private
         ro: 'true'
       - type: bind

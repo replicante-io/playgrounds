@@ -64,7 +64,7 @@ containers:
     image: replicanteio/replicante:v0.5
     mount:
       - type: bind
-        src: '{{ PKI_ROOT }}'
+        src: '{{ PKI_ROOT }}/replidev'
         target: '/tls'
         relabel: private
         ro: 'true'
