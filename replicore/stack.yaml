@@ -61,7 +61,7 @@ containers:
         relabel: private
 
   - name: app
-    image: replicanteio/replicante:v0.5
+    image: replicanteio/replicante:v0.6
     mount:
       - type: bind
         src: '{{ PKI_ROOT }}/replidev'

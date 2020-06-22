@@ -27,7 +27,7 @@ containers:
         relabel: private
 
   - name: repliagent
-    image: replicanteio/agents:v0.4
+    image: replicanteio/agents:v0.5
     command:
       - '/run.sh'
     env:

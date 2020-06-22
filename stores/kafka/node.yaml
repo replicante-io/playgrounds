@@ -4,7 +4,7 @@ containers:
     env:
       KAFKA_ZOOKEEPER_CONNECT: 'podman-host:2181/kafka/{{ CLUSTER_ID }}'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://localhost:{{ HOST_PORT_STORE }}'
-      KAFKA_LISTENERS: 'PLAINTEXT://localhost:9092'
+      KAFKA_LISTENERS: 'PLAINTEXT://localhost:{{ HOST_PORT_STORE }}'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
       JMX_PORT: 9999
@@ -15,7 +15,7 @@ containers:
         relabel: private
 
   - name: repliagent
-    image: replicanteio/agent-kafka:v0.4
+    image: replicanteio/agent-kafka:v0.5
     command:
       - '/run.sh'
     env:
@@ -47,7 +47,6 @@ containers:
 ports:
   - host: 0
     name: 'store'
-    pod: 9092
   - host: 0
     name: 'agent'
     pod: 10092

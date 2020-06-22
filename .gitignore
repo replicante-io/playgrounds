@@ -2,4 +2,7 @@
 
 data/
 replidev.local.yaml
+
+# Files created during quick start.
 zookeeper.demo.json
+ping.yaml

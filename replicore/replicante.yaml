@@ -1,3 +1,11 @@
+api:
+  threads_count: 1
+  # TODO: WebUI client does not support HTTPS yet.
+  #tls:
+  #  clients_ca_bundle: /tls/certs/replidev.crt
+  #  server_cert: /tls/certs/server.crt
+  #  server_key: /tls/keys/server.key
+
 coordinator:
   backend: 'zookeeper'
   options:
@@ -38,6 +46,7 @@ tasks:
   backend: 'kafka'
   options:
     brokers: 'localhost:9092'
+  threads_count: 1
 
 
 timeouts:
