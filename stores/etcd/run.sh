@@ -8,27 +8,26 @@ STORE_PORT=$4
 EXIST_MASTER_NAME=$5
 EXIST_MASTER_PORT=$6
 
-
 if [ "$MODE" = "new" ]; then
   echo "Starting single-node cluster ..."
   exec etcd \
     --name "$NODE_NAME" \
     --data-dir /persist/data \
     --wal-dir /presist/wal \
-    --initial-advertise-peer-urls "http://podman-host:$STORE_PORT" \
+    --initial-advertise-peer-urls "http://host.containers.internal:$STORE_PORT" \
     --initial-cluster-state new \
     --initial-cluster-token "$CLUSTER_ID" \
-    --initial-cluster "$NODE_NAME=http://podman-host:$STORE_PORT"
+    --initial-cluster "$NODE_NAME=http://host.containers.internal:$STORE_PORT"
 
 else
   echo "Starting additional member ..."
-  etcdctl --endpoints "podman-host:$EXIST_MASTER_PORT" member add $NODE_NAME --peer-urls=http://podman-host:$STORE_PORT
+  etcdctl --endpoints "host.containers.internal:$EXIST_MASTER_PORT" member add $NODE_NAME --peer-urls=http://host.containers.internal:$STORE_PORT
 
   exec etcd \
     --name "$NODE_NAME" \
     --data-dir /persist/data \
     --wal-dir /presist/wal \
-    --initial-advertise-peer-urls "http://podman-host:$STORE_PORT"
+    --initial-advertise-peer-urls "http://host.containers.internal:$STORE_PORT"
     --initial-cluster-token "$CLUSTER_ID" \
-    --initial-cluster "$EXIST_MASTER_NAME=http://podman-host:$EXIST_MASTER_PORT"
+    --initial-cluster "$EXIST_MASTER_NAME=http://host.containers.internal:$EXIST_MASTER_PORT"
 fi

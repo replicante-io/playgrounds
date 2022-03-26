@@ -11,7 +11,7 @@ containers:
       - '-Cnetwork.publish_host={{ PODMAN_IP }}'
       - '-Cnode.name={{ NODE_NAME }}'
       - '-Ctransport.tcp.port={{ HOST_PORT_STORE }}'
-      - '{{#if extra.seed}}-Cdiscovery.seed_hosts=podman-host:{{ extra.seed }}{{else}}-Ccluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
+      - '{{#if extra.seed}}-Cdiscovery.seed_hosts=host.containers.internal:{{ extra.seed }}{{else}}-Ccluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
     env:
       CRATE_HEAP_SIZE: '512m'
     mount:

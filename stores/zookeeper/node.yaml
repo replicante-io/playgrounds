@@ -7,13 +7,13 @@ containers:
       # ZOO_SERVERS is a bit of a pain.
       # It is a space separated list of nodes and their addresses.
       # Additionally the current host should bind to 0.0.0.0 + container ports
-      # while others should connect to podman-host + the host ports.
+      # while others should connect to host.containers.internal + the host ports.
       ZOO_SERVERS: >-
         {{#each extra.cluster}}
         {{#if (eq ../extra.my_id id)}}
         server.{{id}}=0.0.0.0:2888:3888;2181
         {{else}}
-        server.{{id}}=podman-host:{{port}}:{{election}};{{client}}
+        server.{{id}}=host.containers.internal:{{port}}:{{election}};{{client}}
         {{/if}}
         {{/each}}
     mount:
@@ -54,7 +54,6 @@ containers:
         relabel: private
         uid: 1616
     workdir: '/opt/replicante'
-
 
 ports:
   - host: 0

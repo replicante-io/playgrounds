@@ -6,7 +6,7 @@ containers:
       - '-Ehttp.port={{ HOST_PORT_CLIENT }}'
       - '-Enetwork.publish_host={{ PODMAN_IP }}'
       - '-Etransport.port={{ HOST_PORT_STORE }}'
-      - '{{#if extra.seed}}-Ediscovery.seed_hosts=podman-host:{{ extra.seed }}{{else}}-Ecluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
+      - '{{#if extra.seed}}-Ediscovery.seed_hosts=host.containers.internal:{{ extra.seed }}{{else}}-Ecluster.initial_master_nodes={{ NODE_NAME }}{{/if}}'
     env:
       node.name: '{{ NODE_NAME }}'
       cluster.name: '{{ CLUSTER_ID }}'

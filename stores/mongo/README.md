@@ -1,9 +1,10 @@
 # MongoDB
-> Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
 
+> Remember: Pods (nodes) can only access each others through the podman host,
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## TLS Certificates
+
 TLS certificates are used by the agents API.
 They are required to enable the actions engine.
 
@@ -13,8 +14,8 @@ They are required to enable the actions engine.
 $ replidev gen-certs
 ```
 
-
 ## Replica Sets
+
 To create a Replica Set we create a node to bootstrap the RS.
 After the single-node RS elects a primary we can add more nodes.
 
@@ -42,7 +43,7 @@ connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName
 Implicit session: session { "id" : UUID("b89e81a0-59ea-4d3e-a39a-ff8b7a2ebde6") }
 MongoDB server version: 4.2.5
 Welcome to the MongoDB shell.
-> rs.initiate({_id: "mongo-rs", members: [{_id: 0, host: "podman-host:10000"}]})
+> rs.initiate({_id: "mongo-rs", members: [{_id: 0, host: "host.containers.internal:10000"}]})
 {
         "ok" : 1,
         "$clusterTime" : {
@@ -75,7 +76,7 @@ play-node-Q3cr1f49   mongo-rs   10000        10000         10001        Running 
 
 # Add the new node to the RS.
 # Repeat this process for as many nodes as you want in the RS.
-$ podman exec -it play-node-Q3cr1f49-mongo mongo --eval 'rs.add("podman-host:10002");'
+$ podman exec -it play-node-Q3cr1f49-mongo mongo --eval 'rs.add("host.containers.internal:10002");'
 MongoDB shell version v4.2.5
 connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
 Implicit session: session { "id" : UUID("4c12ccb4-93b7-4f0f-ad20-688e2a9cd48f") }
@@ -97,45 +98,48 @@ $ curl --cacert data/pki/replidev/ca.crt --cert data/pki/replidev/bundles/client
 {"version":{"checkout":"1d701b0ac6296a96d438e96010f5c531386edc53","number":"0.4.1","taint":"not tainted"}}
 ```
 
-
 ## Sharded Clusters
+
 Sharded clusters are composed of different node roles that must belong to the same cluster ID.
 For this reason the `--cluster-id` option MUST be specified or the differen nodes will
 think they are in different clusters and Replicante won't be able to group them correctly.
 
 The details of buildind a sharded cluster are provided by the official docs:
-https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+<https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/>
 
 First initialise the config replica set:
+
 ```bash
 # Create a one-node config replica set.
 $ replidev play node-start mongo/sharded/conf --cluster-id sharded-cluster
 $ podman exec -it $CONF_NODE mongo --port 27019 \
-  --eval 'rs.initiate({_id:"sharded-cluster-conf", configsvr: true, members: [{_id: 0, host: "podman-host:10000"}]});'
+  --eval 'rs.initiate({_id:"sharded-cluster-conf", configsvr: true, members: [{_id: 0, host: "host.containers.internal:10000"}]});'
 
 # Add as many extra nodes as desired.
 # Follow the steps shown in the replica sets section to do this.
 ```
 
 Next up, create a couple of shards:
+
 ```bash
 # Create a one-node shard replica set.
 # NOTE: A shard id MUST be passed for the pod support defferent .
 $ replidev play node-start mongo/sharded/shard --cluster-id sharded-cluster --var 'shard=1'
 $ podman exec -it $SHARD1_NODE mongo --port 27018 \
-  --eval 'rs.initiate({_id:"sharded-cluster-shard1", members: [{_id: 0, host: "podman-host:10002"}]});'
+  --eval 'rs.initiate({_id:"sharded-cluster-shard1", members: [{_id: 0, host: "host.containers.internal:10002"}]});'
 
 # Create a second one-node shard replica set.
 $ replidev play node-start mongo/sharded/shard --cluster-id sharded-cluster --var 'shard=2'
 $ podman exec -it $SHARD2_NODE mongo --port 27018 \
-  --eval 'rs.initiate({_id:"sharded-cluster-shard2", members: [{_id: 0, host: "podman-host:10004"}]});'
+  --eval 'rs.initiate({_id:"sharded-cluster-shard2", members: [{_id: 0, host: "host.containers.internal:10004"}]});'
 
 # Additional nodes for each shard can easily be added as for replica sets.
 # Additional shards can also be added by setting the `shard` extra variable to new values.
 ```
 
 Finally, create a `mongos` node and tie everything together:
+
 ```bash
-$ replidev play node-start mongo/sharded/mongos --cluster-id sharded-cluster --var 'conf-nodes=podman-host:10000'
-$ podman exec -it $MONGOS_NODE mongo --eval 'sh.addShard("sharded-cluster-shard1/podman-host:10002");'
+replidev play node-start mongo/sharded/mongos --cluster-id sharded-cluster --var 'conf-nodes=host.containers.internal:10000'
+podman exec -it $MONGOS_NODE mongo --eval 'sh.addShard("sharded-cluster-shard1/host.containers.internal:10002");'
 ```

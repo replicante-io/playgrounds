@@ -1,7 +1,7 @@
 # Zookeeper
 
 > Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## TLS Certificates
 

@@ -11,13 +11,11 @@ coordinator:
   options:
     ensemble: 'localhost:2181/replicante'
 
-
 discovery:
   backends:
     http:
-      - url: 'http://podman-host:9876/discover'
+      - url: 'http://host.containers.internal:9876/discover'
         method: GET
-
 
 events:
   snapshots:
@@ -26,7 +24,6 @@ events:
     backend: kafka
     options:
       brokers: 'localhost:9092'
-
 
 storage:
   primary:
@@ -41,17 +38,14 @@ storage:
       db: repliview
       uri: mongodb://localhost:27017/
 
-
 tasks:
   backend: 'kafka'
   options:
     brokers: 'localhost:9092'
   threads_count: 1
 
-
 timeouts:
   agents_api: 15
-
       
 # Section for settings that will move to the DB once namespaces are fully introduced.
 # For the time being, these options allow the system to pretend a namespace is available

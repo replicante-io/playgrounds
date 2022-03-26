@@ -1,9 +1,10 @@
 # Consul
-> Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
 
+> Remember: Pods (nodes) can only access each others through the podman host,
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## Start a cluster
+
 ```bash
 $ replidev play node-start consul
 --> Starting consul node play-node-3tCtH1AV for cluster consul
@@ -19,5 +20,5 @@ play-node-3tCtH1AV   consul    10000        10002         -            Running  
 # Wait for the node to start and bootstrap a one-node cluster.
 # To add nodes once the cluster is running set the `join` variable
 # to a running node already in the cluster:
-$ replidev play node-start consul --var join=podman-host:10000
+$ replidev play node-start consul --var join=host.containers.internal:10000
 ```

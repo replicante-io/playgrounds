@@ -1,12 +1,14 @@
 # ElasticSearch
-> Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
 
+> Remember: Pods (nodes) can only access each others through the podman host,
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## Start a cluster
+
 CrateDB nodes enforce fairly large limits to run.
 Increaes the system limits to start nodes.
 Don't forget to lower them again on your development system.
+
 ```bash
 $ sysctl vm.max_map_count
 vm.max_map_count = 65530
@@ -19,6 +21,7 @@ vm.max_map_count = 65530
 ```
 
 Now start the nodes:
+
 ```bash
 $ replidev play node-start elasticsearch
 --> Starting elasticsearch node play-node-V9xmZk9l for cluster elasticsearch

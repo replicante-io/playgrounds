@@ -1,9 +1,10 @@
 # Kafka
-> Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
 
+> Remember: Pods (nodes) can only access each others through the podman host,
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## TLS Certificates
+
 TLS certificates are used by the agents API.
 They are required to enable the actions engine.
 
@@ -13,10 +14,11 @@ They are required to enable the actions engine.
 $ replidev gen-certs
 ```
 
-
 ## Start a cluster
+
 You will need a running zookeeper instance for the kafka cluster to run.
 Because this are test clusters, a single zookeeper instance running on the podman host is expected:
+
 ```bash
 $ podman run --rm -it \
   --publish 2181:2181 --publish 2888:2888 --publish 3888:3888 --publish 8080:8080 \
@@ -24,6 +26,7 @@ $ podman run --rm -it \
 ```
 
 To start nodes:
+
 ```bash
 $ replidev play node-start kafka
 --> Starting kafka node play-node-jYQOOV38 for cluster kafka

@@ -1,15 +1,14 @@
 # Etcd
 
-**NOTE: Etcd clustering does not work at this moment**
+**NOTE**: Etcd clustering does not work at this moment.
 
 This is because I can't get nodes to generate the same cluster ID so nodes reject each other.
 
-
 > Remember: Pods (nodes) can only access each others through the podman host,
-> accessible within pods with the `podman-host` DNS name.
-
+> accessible within pods with the `host.containers.internal` DNS name.
 
 ## Start a cluster
+
 ```bash
 $ replidev play node-start etcd
 --> Starting etcd node play-node-q3777CMd for cluster etcd
@@ -25,13 +24,13 @@ play-node-q3777CMd   etcd      10000        10001         -            Running  
 # Wait for the node to start and bootstrap a one-node cluster.
 # To add nodes once the cluster is running set the `join` variable
 # to a running node already in the cluster:
-$ replidev play node-start etcd --var 'join=$NODE_NAME=http://podman-host:10000'
+$ replidev play node-start etcd --var 'join=$NODE_NAME=http://host.containers.internal:10000'
 ```
 
-
 ## Interact with the API
+
 ```bash
-$ podman exec -it $NODE_NAME-etcd sh
-$ export ETCDCTL_API=3
-$ etcdctl endpoint status
+podman exec -it $NODE_NAME-etcd sh
+export ETCDCTL_API=3
+etcdctl endpoint status
 ```

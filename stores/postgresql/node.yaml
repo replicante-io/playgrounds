@@ -7,7 +7,7 @@ containers:
       - '{{ CLUSTER_ID }}'
       - '--store-backend=consul'
       - '--store-endpoints'
-      - 'http://podman-host:8500'
+      - 'http://host.containers.internal:8500'
     mount:
       - type: bind
         src: '{{ CONF_ROOT }}/cluster-seed.json'
@@ -21,10 +21,10 @@ containers:
       - '--cluster-name'
       - '{{ CLUSTER_ID }}'
       - '--store-backend=consul'
-      - '--store-endpoints=http://podman-host:8500'
+      - '--store-endpoints=http://host.containers.internal:8500'
       - '--data-dir=/data'
       - '--pg-listen-address=127.0.0.1'
-      - '--pg-advertise-address=podman-host'
+      - '--pg-advertise-address=host.containers.internal'
       - '--pg-advertise-port={{ HOST_PORT_STORE }}'
       - '--pg-repl-username=stolon'
       - '--pg-repl-auth-method=trust'
@@ -43,7 +43,7 @@ containers:
       - '--cluster-name'
       - '{{ CLUSTER_ID }}'
       - '--store-backend=consul'
-      - '--store-endpoints=http://podman-host:8500'
+      - '--store-endpoints=http://host.containers.internal:8500'
       - '--port=25432'
 
 ports:

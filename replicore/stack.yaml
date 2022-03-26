@@ -80,7 +80,6 @@ containers:
     env:
       REPLI_BACKEND_ROOT: 'http://localhost:16016'
 
-
 ports:
   - host: 16016
     name: 'replicore-api'
