@@ -2,9 +2,9 @@ api:
   threads_count: 1
   # TODO: WebUI client does not support HTTPS yet.
   #tls:
-  #  clients_ca_bundle: /tls/certs/replidev.crt
-  #  server_cert: /tls/certs/server.crt
-  #  server_key: /tls/keys/server.key
+  #  clients_ca_bundle: /tls/ca.crt
+  #  server_cert: /tls/issued/server.crt
+  #  server_key: /tls/private/server.key
 
 coordinator:
   backend: 'zookeeper'
@@ -62,5 +62,5 @@ timeouts:
 # Once initial playbooks functionality is implemented, namespaces WILL be added next.
 tmp_namespace_settings:
   https_transport:
-    ca_bundle: '/tls/certs/replidev.crt'
+    ca_bundle: '/tls/ca.crt'
     client_key: '/tls/bundles/client.pem'

@@ -93,7 +93,7 @@ MongoDB server version: 4.2.5
 }
 
 # Optional, check that the agent is responding to API requests.
-$ curl --cacert data/pki/replidev/certs/replidev.crt --cert data/pki/replidev/bundles/client.pem https://localhost:10001/api/unstable/info/agent
+$ curl --cacert data/pki/replidev/ca.crt --cert data/pki/replidev/bundles/client.pem https://localhost:10001/api/unstable/info/agent
 {"version":{"checkout":"1d701b0ac6296a96d438e96010f5c531386edc53","number":"0.4.1","taint":"not tainted"}}
 ```
 

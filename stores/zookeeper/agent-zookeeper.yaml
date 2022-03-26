@@ -3,9 +3,9 @@ agent:
     bind: '0.0.0.0:3181'
     threads_count: 2
     tls:
-      clients_ca_bundle: /tls/replidev/certs/replidev.crt
-      server_cert: /tls/replidev/certs/server.crt
-      server_key: /tls/replidev/keys/server.key
+      clients_ca_bundle: /tls/replidev/ca.crt
+      server_cert: /tls/replidev/issued/server.crt
+      server_key: /tls/replidev/private/server.key
   db: '/data/agent.db'
 
 zookeeper:

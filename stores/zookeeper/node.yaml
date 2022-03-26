@@ -1,6 +1,6 @@
 containers:
   - name: zookeeper
-    image: zookeeper:3.6
+    image: docker.io/library/zookeeper:3.6
     env:
       ZOO_4LW_COMMANDS_WHITELIST: 'conf, stat, srvr'
       ZOO_MY_ID: '{{ extra.my_id }}'
@@ -27,7 +27,7 @@ containers:
         relabel: private
 
   - name: repliagent
-    image: replicanteio/agents:v0.5
+    image: docker.io/replicanteio/agents:v0.5
     command:
       - '/run.sh'
     env:

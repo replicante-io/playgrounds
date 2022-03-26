@@ -1,9 +1,10 @@
 # Zookeeper
+
 > Remember: Pods (nodes) can only access each others through the podman host,
 > accessible within pods with the `podman-host` DNS name.
 
-
 ## TLS Certificates
+
 TLS certificates are used by the agents API.
 They are required to enable the actions engine.
 
@@ -13,8 +14,8 @@ They are required to enable the actions engine.
 $ replidev gen-certs
 ```
 
-
 ## Start a cluster
+
 Zookeeper makes dynamic clusters quite the pain because it requires servers
 to be enumerated, IP and ports, into each node's configuration.
 
@@ -22,9 +23,9 @@ Because this is a development/test tool we work around this by describing the
 nodes in the cluster in a JSON file.
 This works because `replidev play` has a fairly predictable way to assign ports:
 
-  * Starting from the base of the range (10000 by default).
-  * Use each port that is not currently in use.
-  * Allocating them in the `ports` order in the pod definition.
+* Starting from the base of the range (10000 by default).
+* Use each port that is not currently in use.
+* Allocating them in the `ports` order in the pod definition.
 
 > NOTE: this example assumes some ports are available as specified in the cluster JSON file.
 > If they are not, this example will fail.
