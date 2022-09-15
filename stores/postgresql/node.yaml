@@ -12,7 +12,7 @@ containers:
       - type: bind
         src: '{{ CONF_ROOT }}/cluster-seed.json'
         target: '/cluster-seed.json'
-        relabel: private
+        relabel: shared
         ro: 'true'
   - name: keeper
     image: sorintlab/stolon:v0.16.0-pg12

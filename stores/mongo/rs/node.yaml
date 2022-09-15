@@ -21,12 +21,12 @@ containers:
       - type: bind
         src: '{{ CONF_ROOT }}/agent-mongodb.yaml'
         target: '/opt/replicante/agent-mongodb.yaml'
-        relabel: private
+        relabel: shared
         ro: 'true'
       - type: bind
         src: '{{ PKI_ROOT }}'
         target: '/tls'
-        relabel: private
+        relabel: shared
         ro: 'true'
       - type: bind
         src: '{{ DATA_ROOT }}/agent'

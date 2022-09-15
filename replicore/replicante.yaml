@@ -1,4 +1,9 @@
+# To better debug uncomment this code and run replidev play replicore-{stop,start}
+#logging:
+#  level: debug
+
 api:
+  bind: '0.0.0.0:16016'
   threads_count: 1
   # TODO: WebUI client does not support HTTPS yet.
   #tls:
@@ -9,52 +14,34 @@ api:
 coordinator:
   backend: 'zookeeper'
   options:
-    ensemble: 'localhost:2181/replicante'
+    ensemble: '127.0.0.1:2181/replicante'
 
 discovery:
-  backends:
-    http:
-      - url: 'http://host.containers.internal:9876/discover'
-        method: GET
+  interval: 5
 
 events:
-  snapshots:
-    enabled: false
-  stream:
-    backend: kafka
-    options:
-      brokers: 'localhost:9092'
+  backend: kafka
+  options:
+    brokers: '127.0.0.1:9092'
 
 storage:
   primary:
     backend: mongodb
     options:
       db: replicore
-      uri: mongodb://localhost:27017/
+      uri: mongodb://127.0.0.1:27017/
 
   view:
     backend: mongodb
     options:
       db: repliview
-      uri: mongodb://localhost:27017/
+      uri: mongodb://127.0.0.1:27017/
 
 tasks:
   backend: 'kafka'
   options:
-    brokers: 'localhost:9092'
+    brokers: '127.0.0.1:9092'
   threads_count: 1
 
 timeouts:
   agents_api: 15
-      
-# Section for settings that will move to the DB once namespaces are fully introduced.
-# For the time being, these options allow the system to pretend a namespace is available
-# when needed but without hacing to implement all the details around them
-# (DB changes, API changes, namespace provisioning, more ...)
-#
-# This is hardly good design but it helps more quickly get to playbooks.
-# Once initial playbooks functionality is implemented, namespaces WILL be added next.
-tmp_namespace_settings:
-  https_transport:
-    ca_bundle: '/tls/ca.crt'
-    client_key: '/tls/bundles/client.pem'

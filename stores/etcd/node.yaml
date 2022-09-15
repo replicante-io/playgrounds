@@ -13,7 +13,7 @@ containers:
       - type: bind
         src: '{{ CONF_ROOT }}/run.sh'
         target: '/run.sh'
-        relabel: private
+        relabel: shared
         ro: 'true'
       #- type: bind
       #  src: '{{ DATA_ROOT }}/db'

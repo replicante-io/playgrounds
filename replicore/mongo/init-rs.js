@@ -4,7 +4,7 @@ if (status.code == 94 /* NotYetInitialized */) {
   print("---> Replica Set not initialised, correcting ...");
   rs.initiate({
     _id: "replistore",
-    members: [{_id: 0, host: "localhost:27017"}]
+    members: [{_id: 0, host: "127.0.0.1:27017"}]
   });
 
   print("---> Replica set configured, waiting for primary.");
@@ -17,7 +17,7 @@ if (status.code == 94 /* NotYetInitialized */) {
     }
   }
 
-  // Once the pirmary is elected give it time to initialise itself.
+  // Once the primary is elected give it time to initialise itself.
   sleep(1000);
   print("---> Replica Set Ready!");
 } else {

@@ -7,7 +7,7 @@ containers:
       - type: bind
         src: '{{ CONF_ROOT }}/zookeeper.conf'
         target: '/conf/zoo.cfg'
-        relabel: private
+        relabel: shared
         ro: 'false'
       - type: bind
         src: '{{ DATA_ROOT }}/zoo-data'
@@ -38,13 +38,15 @@ containers:
       - type: bind
         src: '{{ CONF_ROOT }}/mongo'
         target: /replicore
-        relabel: private
+        relabel: shared
         ro: 'true'
     # Wait for mongo server to start so the init script can run.
     start_delay: 10
 
   - name: kafka
     image: wurstmeister/kafka:2.12-2.4.1
+    initialise:
+      - /replicore/init.sh
     env:
       JMX_PORT: 9999
       KAFKA_BROKER_ID: 1
@@ -52,33 +54,53 @@ containers:
       KAFKA_LOG_FLUSH_SCHEDULER_INTERVAL_MS: 60000
       KAFKA_NUM_PARTITIONS: 4
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'localhost:2181/kafka'
-      KAFKA_ADVERTISED_HOST_NAME: 'localhost'
+      KAFKA_ZOOKEEPER_CONNECT: '127.0.0.1:2181/kafka'
+      KAFKA_ADVERTISED_HOST_NAME: '127.0.0.1'
     mount:
       - type: bind
         src: '{{ DATA_ROOT }}/kafka'
         target: /kafka
         relabel: private
+      - type: bind
+        src: '{{ CONF_ROOT }}/kafka'
+        target: /replicore
+        relabel: shared
+        ro: 'true'
+    # Wait for kafka to start and refresh brokers state.
+    start_delay: 10
 
   - name: app
-    image: replicanteio/replicante:v0.6
+    image: replicanteio/replicante:v0.7.1
+    # Wait for dependencies initialisation to complete before starting Replicante Core.
+    command:
+      - /replicore/run.sh
+    initialise:
+      - /replicore/init.sh
+    env:
+      REPLICORE_TMP_DEFAULT_AGENTS_CA_BUNDLE: /tls/ca.crt
+      REPLICORE_TMP_DEFAULT_AGENTS_CLIENT_KEY: /tls/bundles/client.pem
     mount:
       - type: bind
         src: '{{ PKI_ROOT }}/replidev'
         target: '/tls'
-        relabel: private
+        relabel: shared
+        ro: 'true'
+      - type: bind
+        src: '{{ CONF_ROOT }}/app'
+        target: /replicore
+        relabel: shared
         ro: 'true'
       - type: bind
         src: '{{ CONF_ROOT }}/replicante.yaml'
         target: '/home/replicante/replicante.yaml'
-        relabel: private
+        relabel: shared
         ro: 'true'
     workdir: '/home/replicante'
 
   - name: ui
     image: replicanteio/webui:v0.3
     env:
-      REPLI_BACKEND_ROOT: 'http://localhost:16016'
+      REPLI_BACKEND_ROOT: 'http://127.0.0.1:16016'
 
 ports:
   - host: 16016
