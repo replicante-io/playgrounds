@@ -1,0 +1,5 @@
+stores:
+  - store: kafka
+    manifest: kafka/manifest.yaml
+  - store: mongo/rs
+    manifest: mongo/rs/manifest.yaml
