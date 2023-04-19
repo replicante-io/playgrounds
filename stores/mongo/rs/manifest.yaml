@@ -1,0 +1,3 @@
+versions:
+  - version: '>= 4.2'
+    template: 'mongo/rs/*.yaml'

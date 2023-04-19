@@ -1,15 +1,15 @@
 containers:
   - name: mongo
-    image: 'mongo:4.2'
+    image: 'mongo:{{ store_version }}'
     command:
       - 'mongod'
       - '--replSet'
-      - '{{ CLUSTER_ID }}'
+      - '{{ cluster_id }}'
       - '--bind_ip'
       - '0.0.0.0'
     mount:
       - type: bind
-        src: '{{ DATA_ROOT }}/db'
+        src: '{{ "{{" }} DATA_ROOT }}/db'
         target: '/data/db'
         relabel: private
 
@@ -19,22 +19,21 @@ containers:
       - 'replicante-agent-mongodb'
     mount:
       - type: bind
-        src: '{{ CONF_ROOT }}/agent-mongodb.yaml'
+        src: '{{ "{{" }} CONF_ROOT }}/agent-mongodb.yaml'
         target: '/opt/replicante/agent-mongodb.yaml'
         relabel: shared
         ro: 'true'
       - type: bind
-        src: '{{ PKI_ROOT }}'
+        src: '{{ "{{" }} PKI_ROOT }}'
         target: '/tls'
         relabel: shared
         ro: 'true'
       - type: bind
-        src: '{{ DATA_ROOT }}/agent'
+        src: '{{ "{{" }} DATA_ROOT }}/agent'
         target: '/data'
         relabel: private
         uid: 1616
     workdir: '/opt/replicante'
-
 
 ports:
   - host: 0
