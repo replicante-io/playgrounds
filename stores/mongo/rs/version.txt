@@ -1,0 +1,13 @@
+db version v4.4.13
+Build Info: {
+    "version": "4.4.13",
+    "gitVersion": "df25c71b8674a78e17468f48bcda5285decb9246",
+    "openSSLVersion": "OpenSSL 1.1.1f  31 Mar 2020",
+    "modules": [],
+    "allocator": "tcmalloc",
+    "environment": {
+        "distmod": "ubuntu2004",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}

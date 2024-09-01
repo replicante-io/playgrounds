@@ -1,12 +1,11 @@
-agent:
-  api:
-    bind: '0.0.0.0:37017'
-    threads_count: 2
-    tls:
-      clients_ca_bundle: /tls/replidev/ca.crt
-      server_cert: /tls/replidev/issued/server.crt
-      server_key: /tls/replidev/private/server.key
-  db: '/data/agent.db'
+http:
+  bind: '0.0.0.0:37017'
+  workers: 2
 
-mongo:
-  uri: mongodb://localhost:27017/
+store_path: '/data/agent.db'
+
+addresses:
+  cluster: 'localhost:27017'
+
+version_detect:
+  file: "/conf/version.txt"

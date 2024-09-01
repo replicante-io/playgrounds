@@ -5,6 +5,8 @@ containers:
       - 'mongod'
       - '--replSet'
       - '{{ cluster_id }}'
+      - '--oplogSize'
+      - '1024'
       - '--bind_ip'
       - '0.0.0.0'
     mount:
@@ -14,18 +16,17 @@ containers:
         relabel: private
 
   - name: repliagent
-    image: replicanteio/agents:v0.5
+    image: localhost/repliagent/mongo:local
     command:
-      - 'replicante-agent-mongodb'
+      - '/opt/replicante/bin/repliagent-mongodb'
+      - '--config=/conf/agent-mongodb.yaml'
+      - 'replica-set'
+    env:
+      RA_NODE_ID: '{{ "{{" }} NODE_NAME }}'
     mount:
       - type: bind
-        src: '{{ "{{" }} CONF_ROOT }}/agent-mongodb.yaml'
-        target: '/opt/replicante/agent-mongodb.yaml'
-        relabel: shared
-        ro: 'true'
-      - type: bind
-        src: '{{ "{{" }} PKI_ROOT }}'
-        target: '/tls'
+        src: '{{ "{{" }} CONF_ROOT }}/'
+        target: '/conf'
         relabel: shared
         ro: 'true'
       - type: bind
