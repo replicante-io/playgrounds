@@ -23,6 +23,7 @@ containers:
       - 'replica-set'
     env:
       RA_NODE_ID: '{{ "{{" }} NODE_NAME }}'
+      RA_NODE_ADDR_MEMBER: 'host.containers.internal:{{ "{{" }} HOST_PORT_STORE }}'
     mount:
       - type: bind
         src: '{{ "{{" }} CONF_ROOT }}/'
